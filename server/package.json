@@ -1,0 +1,11 @@
+{
+  "name": "the-shoap",
+  "version": "1.0.0",
+  "main": "app.js",
+  "repository": "https://github.com/kaboel/the-shoap.git",
+  "author": "Faiq <faiq.kaboel@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "nodemon": "^2.0.1"
+  }
+}
