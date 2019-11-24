@@ -1,10 +1,6 @@
 const mongoose = require('mongoose');
 
 const CHILD_SCHEMA = mongoose.Schema({
-  orderId: {
-    type: mongoose.Schema.Types.ObjectId,
-    required: true
-  },
   productId: {
     type: mongoose.Schema.Types.ObjectId,
     required: true
