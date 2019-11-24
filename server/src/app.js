@@ -1,4 +1,4 @@
-// const config = require('./_helpers/config');
+const config = require('./_helpers/config');
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
@@ -27,7 +27,7 @@ try {
       console.log(`Server started on port: ${port}...`);
     });
   } catch (e) {
-    console.log('errcode(0): Server failed to start.');
+    console.log(`errcode(0): Server failed to start. ${e.message}`);
   }
 } catch (e) {
   console.log(`errcode(1): ${e.message}`);
