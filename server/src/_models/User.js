@@ -14,10 +14,7 @@ const SCHEMA = mongoose.Schema({
     required: true
   }
 }, {
-  timestamps: {
-    createdAt: 'created_at',
-    updatedAt: 'updated_at'
-  }
+  timestamps: true
 });
 
 const MODEL = mongoose.model('User', SCHEMA, 'Users');
