@@ -3,7 +3,7 @@ const Order = require('../_models/Order');
 module.exports = {
   async index(req, res) {
     await Order.find({}).then(result => {
-      res.json(result);
+      (result != null) ? res.json(result) : 'No Order has been made.';
     }).catch(err => {
       res.status(500).send({
         error: `errcode(0): ${err.message}`
