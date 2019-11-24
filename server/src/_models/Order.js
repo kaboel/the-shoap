@@ -1,6 +1,28 @@
 const mongoose = require('mongoose');
 
-const SCHEMA = mongoose.Schema({
+const CHILD_SCHEMA = mongoose.Schema({
+  orderId: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true
+  },
+  productId: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true
+  },
+  amount: {
+    type: mongoose.Schema.Types.Number,
+    required: true
+  },
+  note: {
+    type: mongoose.Schema.Types.String,
+  },
+  status: {
+    type: mongoose.Schema.Types.Boolean,
+    default: false
+  }
+});
+
+const PARENT_SCHEMA = mongoose.Schema({
   name: {
     type: mongoose.Schema.Types.String,
     required: 'Name is required!'
@@ -17,10 +39,7 @@ const SCHEMA = mongoose.Schema({
     type: mongoose.Schema.Types.String,
     required: 'Address is required!'
   },
-  orders: {
-    type: mongoose.Schema.Types.Array,
-    ref: 'Orders'
-  },
+  orders: [CHILD_SCHEMA],
   status: {
     type: mongoose.Schema.Types.Boolean,
     default: false
@@ -29,6 +48,6 @@ const SCHEMA = mongoose.Schema({
   timestamps: true
 });
 
-const MODEL = mongoose.model('CustomerOrder', SCHEMA, 'CustomerOrders');
+const MODEL = mongoose.model('Order', PARENT_SCHEMA, 'Orders');
 
 module.exports = MODEL;
