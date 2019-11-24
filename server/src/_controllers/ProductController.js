@@ -8,8 +8,8 @@ module.exports = {
         }).catch(err => {
           res.status(500).send({
             error: `errcode(2): ${err.message}`
-          });
-        });
+          })
+        })
   },
 
   async store(req, res) {
@@ -22,5 +22,15 @@ module.exports = {
           error: `errcode(3): ${err.message}`
         })
       })
+  },
+
+  async findById(req, res) {
+    await Product.find({id: req.params.id}).then(result => {
+      (result != null) ? res.json(result) : 'Product not found.';
+    }).catch(err => {
+      res.status(500).send({
+        error: `errcode(0): ${err.message}`
+      })
+    })
   }
 };
