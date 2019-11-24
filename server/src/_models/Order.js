@@ -1,27 +1,34 @@
 const mongoose = require('mongoose');
 
 const SCHEMA = mongoose.Schema({
-  orderId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'UserOrder'
+  name: {
+    type: mongoose.Schema.Types.String,
+    required: 'Name is required!'
   },
-  productId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Products'
+  phone: {
+    type: mongoose.Schema.Types.String,
+    required: 'Phone is required!'
   },
-  amount: {
-    type: Number,
-    required: 'QTY is required!'
+  email: {
+    type: mongoose.Schema.Types.String,
+    required: 'Phone is required!'
   },
-  note: {
-    type: String
+  address: {
+    type: mongoose.Schema.Types.String,
+    required: 'Address is required!'
+  },
+  orders: {
+    type: mongoose.Schema.Types.Array,
+    ref: 'Orders'
   },
   status: {
-    type: Boolean,
+    type: mongoose.Schema.Types.Boolean,
     default: false
   }
+}, {
+  timestamps: true
 });
 
-const MODEL = mongoose.model('Order', SCHEMA, 'Orders');
+const MODEL = mongoose.model('CustomerOrder', SCHEMA, 'CustomerOrders');
 
 module.exports = MODEL;

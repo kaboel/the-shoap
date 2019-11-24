@@ -2,19 +2,19 @@ const mongoose = require('mongoose');
 
 const SCHEMA = mongoose.Schema({
   name: {
-    type: String,
+    type: mongoose.Schema.Types.String,
     required: 'Name is required!'
   },
   description: {
-    type: String,
+    type: mongoose.Schema.Types.String,
     required: 'Description is required!'
   },
   price: {
-    type: Number,
+    type: mongoose.Schema.Types.Number,
     required: 'Price is required!'
   },
   duration: {
-    type: Number,
+    type: mongoose.Schema.Types.String,
     required: 'Duration is required!'
   }
 });
