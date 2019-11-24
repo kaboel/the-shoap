@@ -1,21 +1,21 @@
 const Order = require('../_models/Order');
-const CustomerOrder = require('../_models/CustomerOrder');
 
 module.exports = {
-  async store(req, res) {
-    const customerOrder = new CustomerOrder({
+   async store(req, res) {
+    const customerOrder = new Order({
       name: req.body.name,
       phone: req.body.phone,
       email: req.body.email,
-      address: req.body.address
+      address: req.body.address,
+      orders: req.body.order
     });
-    await customerOrder.save().then(result => {
-      let id = result.id;
 
+    await customerOrder.save().then(customerOrderResult => {
+      res.send(customerOrderResult);
     }).catch(err => {
       res.status(500).send({
-        error: `errcode(3): ${err.message}`
+        error: `errcode(3[0]): ${err.message}`
       });
     });
-  }
+  },
 };
