@@ -5,7 +5,7 @@ const SCHEMA = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'UserOrder'
   },
-  product: {
+  productId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Products'
   },
@@ -13,7 +13,13 @@ const SCHEMA = mongoose.Schema({
     type: Number,
     required: 'QTY is required!'
   },
-  note: {type: String}
+  note: {
+    type: String
+  },
+  status: {
+    type: Boolean,
+    default: false
+  }
 });
 
 const MODEL = mongoose.model('Order', SCHEMA, 'Orders');

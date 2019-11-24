@@ -16,6 +16,10 @@ const SCHEMA = mongoose.Schema({
   address: {
     type: String,
     required: 'Address is required!'
+  },
+  status: {
+    type: Boolean,
+    default: false
   }
 }, {
   timestamps: true
