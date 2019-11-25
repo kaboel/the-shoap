@@ -5,6 +5,7 @@ import App from './App'
 import router from './router'
 import store from './store'
 import Buefy from 'buefy'
+import 'buefy/dist/buefy.min.css'
 import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
 
 Vue.config.productionTip = false
@@ -19,7 +20,6 @@ Vue.use(Buefy, {
 router.beforeEach((to, from, next) => {
   const nearestWithTitle = to.matched.slice().reverse().find(r => r.meta && r.meta.title)
   const nearestWithMeta = to.matched.slice().reverse().find(r => r.meta && r.meta.metaTags)
-  // eslint-disable-next-line no-unused-vars
   from.matched.slice().reverse().find(r => r.meta && r.meta.metaTags)
 
   if (nearestWithTitle) document.title = nearestWithTitle.meta.title
