@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Index from '../views/Index'
+import Index from './views/client/Index'
 
 Vue.use(Router)
 
@@ -9,7 +9,10 @@ export default new Router({
     {
       path: '/',
       name: 'Index',
-      component: Index
+      component: Index,
+      meta: {
+        title: 'The Shoap'
+      }
     },
     {
       path: '*',
