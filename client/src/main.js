@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import store from './store'
 import Buefy from 'buefy'
 import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
 
@@ -19,6 +20,7 @@ Vue.use(Buefy, {
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })
