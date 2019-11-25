@@ -10,7 +10,7 @@ const App = express();
 App.use(cors());
 App.use(morgan('combined'));
 App.use(bodyParser.urlencoded({extended: true}));
-App.use(bodyParser.json);
+// App.use(bodyParser.json);
 
 require('./routes')(App);
 
