@@ -1,11 +1,11 @@
 import Axios from 'axios'
 
-const api = Axios.create({
+const uri = Axios.create({
   baseURL: `http://localhost:8089/v0`
 })
 
 export default {
   getAllProduct () {
-    return api.get(`/products`)
+    return uri.get(`/products`)
   }
 }
