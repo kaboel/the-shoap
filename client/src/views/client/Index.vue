@@ -1,22 +1,21 @@
 <template>
   <div>
-    <div class="overlay">
-      <video autoplay muted loop class="overlay-video">
-        <source src="../../assets/sepatu.mp4"/>
-      </video>
+    <video autoplay muted loop class="overlay-video">
+      <source src="../../assets/sepatu.mp4" type="video/mp4">
+    </video>
 
-      <div class="columns greetings">
-        <div class="column">
-          <p class="subtitle is-size-2 has-text-white">Welcome To</p>
-          <p class="title is-size-large has-text-primary">The Shoap</p>
-          <br/>
-          <p class="subtitle has-text-primary">
-            <span class="is-size-4">Shoe Laundry</span> <br/>
-            <span class="is-size-5">Est. 2222</span>
-          </p>
-        </div>
+    <div class="columns greetings">
+      <div class="column">
+        <p>
+          <span class="subtitle is-size-2 has-text-white">Welcome To</span> <br/>
+          <span class="title is-size-large has-text-primary">The Shoap</span>
+        </p>
+        <br/>
+        <p class="subtitle has-text-primary">
+          <span class="is-size-4">Shoe Laundry</span> <br/>
+          <span class="is-size-5">Est. 1000 A.D</span>
+        </p>
       </div>
-
     </div>
   </div>
 </template>
@@ -47,21 +46,16 @@ export default {
 </script>
 
 <style scoped>
-.overlay {
-  position: relative;
-  width: 100%;
-  overflow: hidden;
-}
 .overlay-video {
-  position: absolute;
-  left: 0;
-  top: 0;
+  position: fixed;
+  right: 0;
+  bottom: 0;
   min-width: 100%;
   min-height: 100%;
 }
 .greetings {
   text-align: center;
-  position: relative;
+  position: fixed;
   width: 100%;
   min-height: 100vh;
 }
@@ -69,6 +63,6 @@ export default {
   padding-top: 35vh
 }
 .is-size-large {
-  font-size: 5rem;
+  font-size: 6rem;
 }
 </style>
