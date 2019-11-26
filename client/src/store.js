@@ -11,26 +11,25 @@ const store = new Vuex.Store({
     pageActive: null
   },
   mutations: {
-    contentOff(state) {
+    contentOff (state) {
       state.contentOn = false
     },
-    toggleContent(state) {
-      (state.contentOn === true) ?
-        state.contentOn = false : state.contentOn = true
+    toggleContent (state) {
+      (state.contentOn === true) ? state.contentOn = false : state.contentOn = true
     },
-    routeTo(state, page) {
+    routeTo (state, page) {
       state.contentOn = true
       state.pageActive = page
     }
   },
   actions: {
-    contentOff({commit}) {
+    contentOff ({commit}) {
       commit('contentOff')
     },
-    toggleContent({commit}) {
+    toggleContent ({commit}) {
       commit('toggleContent')
     },
-    routeTo({commit}, page) {
+    routeTo ({commit}, page) {
       commit('routeTo', page)
     }
   }

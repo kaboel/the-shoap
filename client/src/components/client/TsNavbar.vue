@@ -28,13 +28,13 @@
         </a>
         <div class="navbar-item has-text-centered">
           <router-link class="button is-rounded is-outlined" to="/contact">
-            <font-awesome-icon :icon="['fas', 'envelope']" class="mr-sm fa-lg"></font-awesome-icon>
+            <font-awesome-icon :icon="['fas', 'envelope']" class="mr-sm fa-lg"/>
             <b>Check Status</b>
           </router-link>
         </div>
         <div class="navbar-item has-text-centered">
           <router-link class="button is-rounded" to="/contact">
-            <font-awesome-icon :icon="['fas', 'envelope']" class="mr-sm fa-lg"></font-awesome-icon>
+            <font-awesome-icon :icon="['fas', 'envelope']" class="mr-sm fa-lg"/>
           </router-link>
         </div>
       </div>
@@ -45,16 +45,16 @@
 <script>
 export default {
   name: 'TsNavbar',
-  data() {
+  data () {
     return {
       navToggle: false
     }
   },
   methods: {
-    contentOff() {
+    contentOff () {
       this.$store.dispatch('contentOff')
     },
-    routeTo(page) {
+    routeTo (page) {
       this.$store.dispatch('routeTo', page)
     }
   }

@@ -44,10 +44,10 @@
 <script>
 import api from '../../service/api'
 import {mapState, mapActions} from 'vuex'
-import About from "./About";
-import Products from "./Products";
-import Contact from "./Contact";
-import TsNavbar from "../../components/client/TsNavbar";
+import About from './About'
+import Products from './Products'
+import Contact from './Contact'
+import TsNavbar from '../../components/client/TsNavbar'
 
 export default {
   name: 'Index',

@@ -22,7 +22,7 @@ export default new Router({
       meta: {
         title: 'The Shoap - About'
       }
-    },
+    }
     // {
     //   path: '*',
     //   redirect: '/'
