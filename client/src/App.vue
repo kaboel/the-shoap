@@ -25,4 +25,16 @@ a.navbar-link {
 a.navbar-link:hover {
   color: #00a2ea !important;
 }
+.footer {
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  text-align: center;
+  color: #00a2ea;
+  padding: 50px;
+  font-weight: bold;
+  font-size: .8rem;
+  font-style: oblique;
+  background-color: transparent;
+}
 </style>

@@ -22,6 +22,12 @@
 
     <div v-if="contentOn" class="bottom-bar">
       <About v-if="pageActive === 'About'"/>
+      <Products v-if="pageActive === 'Products'"/>
+      <Contact v-if="pageActive === 'Contact'"/>
+    </div>
+
+    <div class="footer">
+      &copy; 2019 Kodeskillet
     </div>
   </div>
 </template>
@@ -30,10 +36,12 @@
 import api from '../../service/api'
 import {mapState} from 'vuex'
 import About from "./About";
+import Products from "./Products";
+import Contact from "./Contact";
 
 export default {
   name: 'Index',
-  components: {About},
+  components: {Contact, Products, About},
   data () {
     return {
       products: {},
