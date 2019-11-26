@@ -34,7 +34,13 @@ a.navbar-link:hover {
   padding: 50px;
   font-weight: bold;
   font-size: .8rem;
-  font-style: oblique;
   background-color: transparent;
+}
+code {
+  background-color: transparent;
+  color: #ff3860;
+  font-size: 1em !important;
+  font-weight: 400;
+  padding: .25em .5em .25em;
 }
 </style>

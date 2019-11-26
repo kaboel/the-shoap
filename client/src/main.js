@@ -7,6 +7,11 @@ import store from './store'
 import Buefy from 'buefy'
 import 'buefy/dist/buefy.min.css'
 import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
+import {library} from '@fortawesome/fontawesome-svg-core'
+
+import { faCopyright } from '@fortawesome/free-solid-svg-icons'
+
+library.add(faCopyright)
 
 Vue.config.productionTip = false
 

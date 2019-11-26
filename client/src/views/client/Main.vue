@@ -27,7 +27,7 @@
     </div>
 
     <div class="footer">
-      &copy; 2019 Kodeskillet
+      <font-awesome-icon :icon="['fa', 'copyright']"></font-awesome-icon> 2019 <code>Kodeskillet</code>
     </div>
   </div>
 </template>
