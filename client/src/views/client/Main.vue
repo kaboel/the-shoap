@@ -1,6 +1,6 @@
 <template>
   <div>
-    <video autoplay muted loop class="overlay-video">
+    <video autoplay muted loop class="bg-video">
       <source src="../../assets/sepatu.mp4" type="video/mp4">
     </video>
 
@@ -17,19 +17,29 @@
         </p>
       </div>
     </div>
+
+    <div v-if="contentOn" class="overlay"></div>
+
+    <div v-if="contentOn" class="bottom-bar">
+      <About v-if="pageActive === 'About'"/>
+    </div>
   </div>
 </template>
 
 <script>
 import api from '../../service/api'
+import {mapState} from 'vuex'
+import About from "./About";
 
 export default {
   name: 'Index',
+  components: {About},
   data () {
     return {
-      products: {}
+      products: {},
     }
   },
+  computed: mapState(['contentOn', 'pageActive']),
   mounted () {
     this.loadProducts()
   },
@@ -46,7 +56,14 @@ export default {
 </script>
 
 <style scoped>
-.overlay-video {
+.overlay {
+  background-color: rgba(0,0,0,0.6);
+  position: fixed;
+  min-height: 100%;
+  min-width: 100%;
+  z-index: 5;
+}
+.bg-video {
   position: fixed;
   right: 0;
   bottom: 0;
@@ -64,5 +81,16 @@ export default {
 }
 .is-size-large {
   font-size: 6rem;
+}
+.bottom-bar {
+  bottom: 0;
+  position: fixed;
+  width: 100%;
+  height: 82.5%;
+  z-index: 99;
+  background-color: #eee;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  transition: all .2s ease-in-out;
 }
 </style>
