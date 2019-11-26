@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Index from './views/client/Index'
+import Index from './views/client/Main'
 import About from './views/client/About'
 
 Vue.use(Router)
@@ -23,9 +23,9 @@ export default new Router({
         title: 'The Shoap - About'
       }
     },
-    {
-      path: '*',
-      redirect: '/'
-    }
+    // {
+    //   path: '*',
+    //   redirect: '/'
+    // }
   ]
 })

@@ -16,5 +16,10 @@ export default {
 }
 </script>
 <style scoped>
-
+.navbar {
+  background-color: #fff !important;
+}
+.navbar-item .button {
+ display: none !important;
+}
 </style>
