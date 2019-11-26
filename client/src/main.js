@@ -9,9 +9,9 @@ import 'buefy/dist/buefy.min.css'
 import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
 import {library} from '@fortawesome/fontawesome-svg-core'
 
-import { faCopyright } from '@fortawesome/free-solid-svg-icons'
+import { faCopyright, faTimes } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faCopyright)
+library.add(faCopyright, faTimes)
 
 Vue.config.productionTip = false
 

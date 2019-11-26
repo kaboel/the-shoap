@@ -1,17 +1,13 @@
 <template>
   <div id="app">
-    <ts-navbar/>
     <router-view/>
   </div>
 </template>
 
 <script>
-import TsNavbar from './components/client/TsNavbar'
-import About from './views/client/About'
 
 export default {
   name: 'App',
-  components: {About, TsNavbar}
 }
 </script>
 
