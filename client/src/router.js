@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Index from './views/client/Main'
 import About from './views/client/About'
+import Main from "./views/admin/Main";
 
 Vue.use(Router)
 
@@ -22,10 +23,16 @@ export default new Router({
       meta: {
         title: 'The Shoap - About'
       }
-    }
+    },
     // {
     //   path: '*',
     //   redirect: '/'
     // }
+    {
+      path: '/admin-secured',
+      name: 'Admin',
+      component: Main,
+
+    }
   ]
 })

@@ -24,7 +24,7 @@
     <div v-if="contentActive" class="content-bar">
       <div class="content-bar-header">
         <a class="exit-btn" href="#" @click="$store.dispatch('contentOff')">
-          <font-awesome-icon :icon="['fas', 'times']"></font-awesome-icon>
+          <font-awesome-icon :icon="['fas', 'times']"/>
         </a>
       </div>
       <div class="content-bar-content">
@@ -35,7 +35,7 @@
     </div>
 
     <div class="footer">
-      <font-awesome-icon :icon="['fa', 'copyright']"></font-awesome-icon> 2014 <span style="font-weight: lighter; color: #ddd">The Mastej Studio</span> <br/>
+      <font-awesome-icon :icon="['fa', 'copyright']"/> 2014 <span style="font-weight: lighter; color: #ddd">The Mastej Studio</span> <br/>
       Beautified by <code>Kodeskillet</code>
     </div>
   </div>
@@ -50,7 +50,7 @@ import Contact from './Contact'
 import TsNavbar from '../../components/client/TsNavbar'
 
 export default {
-  name: 'Index',
+  name: 'ClientMain',
   components: {TsNavbar, Contact, Products, About},
   data () {
     return {
@@ -63,9 +63,6 @@ export default {
     contentOn (newVal, oldVal) {
       this.contentActive = newVal
     },
-    getAllProducts (newVal, oldVal) {
-      this.products = newVal
-    }
   },
   mounted () {
     this.loadProducts()

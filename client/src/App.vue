@@ -12,6 +12,9 @@ export default {
 </script>
 
 <style>
+#app {
+  overflow: hidden !important;
+}
 .has-text-primary {
   color: #00a2ea !important;
 }
