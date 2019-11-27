@@ -8,7 +8,8 @@ const store = new Vuex.Store({
     products: {},
     cart: [],
     contentOn: false,
-    pageActive: null
+    pageActive: null,
+    sectionActive: 'Products'
   },
   mutations: {
     contentOff (state) {
@@ -20,6 +21,9 @@ const store = new Vuex.Store({
     routeTo (state, page) {
       state.contentOn = true
       state.pageActive = page
+    },
+    sectionTo (state, section) {
+      state.sectionActive = section
     }
   },
   actions: {
@@ -31,6 +35,9 @@ const store = new Vuex.Store({
     },
     routeTo ({commit}, page) {
       commit('routeTo', page)
+    },
+    sectionTo ({commit}, section) {
+      commit('sectionTo', section)
     }
   }
 })
