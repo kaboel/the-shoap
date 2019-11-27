@@ -32,5 +32,20 @@ module.exports = {
         error: `errcode(0): ${err.message}`
       })
     })
+  },
+
+  async update(req, res) {
+
+  },
+
+  async delete(req, res) {
+    await Product.deleteOne({id: req.body.id}).then(result => {
+      res.send(result);
+    }).catch(err => {
+      res.status(500).send({
+        err: `errcode(0): ${err.message}`
+      })
+    })
   }
+
 };
