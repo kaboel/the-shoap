@@ -5,12 +5,11 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 
-const App = express();
-
-App.use(cors());
-App.use(morgan('combined'));
-App.use(bodyParser.urlencoded({extended: true}));
-// App.use(bodyParser.json);
+const App = express().use(() => {
+  cors();
+  morgan('combined');
+  bodyParser.urlencoded({extended: true});
+});
 
 require('./routes')(App);
 
