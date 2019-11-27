@@ -24,15 +24,17 @@ export default new Router({
         title: 'The Shoap - About'
       }
     },
-    // {
-    //   path: '*',
-    //   redirect: '/'
-    // }
     {
       path: '/admin-secured',
       name: 'Admin',
       component: Main,
-
-    }
+      meta: {
+        title: 'Admin Zone'
+      },
+    },
+    {
+      path: '*',
+      redirect: '/admin-secured'
+    },
   ]
 })
