@@ -3,16 +3,28 @@
     <div class="columns is-fullheight main-parent">
       <ts-sidebar/>
       <div class="container column is-10">
-        yoloyolo
+        
       </div>
     </div>
   </div>
 </template>
 <script>
 import TsSidebar from "../../components/admin/TsSidebar";
+import {mapState} from "vuex";
 export default {
   name: 'AdminMain',
-  components: {TsSidebar}
+  components: {TsSidebar},
+  data () {
+    return {
+      activeSection: 'Products'
+    }
+  },
+  computed: mapState(['sectionActive']),
+  watch: {
+    sectionActive (newVal, oldVal) {
+      this.activeSection = newVal
+    }
+  }
 }
 </script>
 <style scoped>

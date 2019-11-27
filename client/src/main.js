@@ -10,10 +10,10 @@ import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
 import {library} from '@fortawesome/fontawesome-svg-core'
 
 import {
-  faCopyright, faTimes, faLink, faHome, faInfo
+  faCopyright, faTimes, faLink, faHome, faInfo, faBoxes, faList
 } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faCopyright, faTimes, faHome, faLink, faInfo)
+library.add(faCopyright, faTimes, faHome, faLink, faInfo, faBoxes, faList)
 
 Vue.config.productionTip = false
 
