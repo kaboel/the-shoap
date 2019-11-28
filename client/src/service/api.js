@@ -8,6 +8,9 @@ const product = {
   getAllProduct () {
     return uri.get(`/products`)
   },
+  getProductById (id) {
+    return uri.get(`product/${id}`)
+  },
   deleteProduct (id) {
     return uri.post(`/product/delete`, {
       id: id
@@ -27,6 +30,9 @@ const type = {
   getAllTypes () {
     return uri.get(`/types`)
   },
+  getTypeById (id) {
+    return uri.get(`/type/${id}`)
+  },
   deleteType (id) {
     return uri.post(`/type/delete`, {
       id: id
@@ -43,9 +49,12 @@ const type = {
 const order = {
   getAllOrders () {
     return uri.get(`/orders`)
+  },
+  getOrderById (id) {
+    return uri.get(`/order/${id}`)
   }
 }
 
 export default {
-  product, type
+  product, type, order
 }
