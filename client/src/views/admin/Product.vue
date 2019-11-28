@@ -12,6 +12,7 @@
         <tr>
           <th>Name</th>
           <th>Desc.</th>
+          <th>Duration (day(s))</th>
           <th>Price (Rp.)</th>
           <th/>
         </tr>
@@ -23,6 +24,7 @@
             <span class="subtitle is-size-xs fade">{{product._id}}</span>
           </td>
           <td>{{product.description}}</td>
+          <td>{{product.duration}} day(s)</td>
           <td>Rp. {{moneyFormat(product.price)}}</td>
           <td>
             <b-button class="is-danger" @click="deleteProduct(product._id)">
@@ -57,7 +59,7 @@ export default {
   },
   methods: {
     async loadProducts () {
-      await api.getAllProduct().then(res => {
+      await api.product.getAllProduct().then(res => {
         this.$store.dispatch('fillProducts', res.data)
       }).catch(err => {
         console.log(err.message)
@@ -74,7 +76,7 @@ export default {
         iconPack: 'fas',
         size: 'is-small',
         onConfirm: async () => {
-          await api.deleteProduct(id).then(res => {
+          await api.product.deleteProduct(id).then(res => {
             console.log(res);
             this.loadProducts();
           }).catch(err => {

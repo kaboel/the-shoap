@@ -1,8 +1,8 @@
 <template>
-  <div id="main">
+  <section id="main">
     <div class="columns is-fullheight main-parent">
       <ts-sidebar/>
-      <div class="container column is-10 box is-fullheight main-content">
+      <div class="column is-10 box is-fullheight main-content">
         <nav class="breadcrumb is-right" aria-label="breadcrumbs">
           <ul>
             <li v-if="activeSection.parent !== ''"
@@ -23,19 +23,21 @@
         <div class="navbar-divider"/>
         <div class="content">
           <Product v-if="activeSection.parent === 'Products' && !activeSection.hasOwnProperty('child')"/>
+          <AddProduct v-if="activeSection.parent === 'Products' && activeSection.child === 'New Product'"/>
         </div>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 <script>
 import TsSidebar from '../../components/admin/TsSidebar'
 import {mapState} from 'vuex'
 import Product from './Product'
+import AddProduct from './AddProduct'
 
 export default {
   name: 'AdminMain',
-  components: {Product, TsSidebar},
+  components: {AddProduct, Product, TsSidebar},
   data () {
     return {
       activeSection: {
@@ -60,6 +62,7 @@ export default {
   padding: 30px;
 }
 .main-content {
+  background-color: #fbfbfb;
   padding: 0;
 }
 nav.breadcrumb {
