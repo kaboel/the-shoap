@@ -40,23 +40,16 @@ module.exports = {
   },
 
   async destroy(req, res) {
-    await Product.find({id: req.body.id}).then(result => {
-      if (result != null) {
-        Product.deleteOne({id: result._id}).then(cb => {
-          res.send(cb);
-        }).catch(err => {
-          res.status(500).send({
-            error: `errcode(1): ${err.message}`
-          })
-        })
-      } else {
-        res.send('Product specified not found.');
-      }
+    await Product.remove({_id: req.body.id}).then(result => {
+      res.send({
+        n: result.n,
+        deletedCount: result.deletedCount
+      });
     }).catch(err => {
       res.status(500).send({
         error: `errcode(0): ${err.message}`
-      });
-    });
+      })
+    })
   }
 
 };
