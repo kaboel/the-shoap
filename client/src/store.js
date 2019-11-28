@@ -7,6 +7,7 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
   state: {
     products: null,
+    orders: null,
     types: null,
     cart: [],
     contentOn: false,
@@ -32,6 +33,9 @@ const store = new Vuex.Store({
     products (state, products) {
       state.products = products
     },
+    orders (state, orders) {
+      state.orders = orders
+    },
     types (state, types) {
       state.types = types
     }
@@ -51,6 +55,9 @@ const store = new Vuex.Store({
     },
     fillProducts ({commit}, products) {
       commit('products', products)
+    },
+    fillOrders ({commit}, orders) {
+      commit('orders', orders)
     },
     fillTypes ({commit}, types) {
       commit('types', types)

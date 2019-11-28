@@ -40,6 +40,12 @@ const type = {
   }
 }
 
+const order = {
+  getAllOrders () {
+    return uri.get(`/orders`)
+  }
+}
+
 export default {
   product, type
 }
