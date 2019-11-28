@@ -3,7 +3,7 @@ const Order = require('../_models/Order');
 module.exports = {
   async index(req, res) {
     await Order.find({}).then(result => {
-      (result != null) ? res.json(result) : 'No Order has been made.';
+      (result != null) ? res.json(result) : res.send('No Types found.');
     }).catch(err => {
       res.status(500).send({
         error: `errcode(0): ${err.message}`
@@ -31,7 +31,7 @@ module.exports = {
 
   async findById(req, res) {
     await Order.find(req.params.id).then(result => {
-      (result != null) ? res.json(result) : 'Order not found.';
+      (result != null) ? res.json(result) : res.send('Order not found.');
     }).catch(err => {
       res.status(500).send({
         error: `errcode(0): ${err.message}`

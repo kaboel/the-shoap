@@ -25,28 +25,38 @@ module.exports = {
       }).catch(err => {
         res.status(500).send({
           error: `errcode(3): ${err.message}`
-        })
-      })
+        });
+      });
   },
 
   async findById(req, res) {
     await Product.find({id: req.params.id}).then(result => {
-      (result != null) ? res.json(result) : 'Product not found.';
+      (result != null) ? res.json(result) : res.send('Product not found.');
     }).catch(err => {
       res.status(500).send({
         error: `errcode(0): ${err.message}`
-      })
-    })
+      });
+    });
   },
 
-  async delete(req, res) {
-    await Product.deleteOne({id: req.body.id}).then(result => {
-      res.send(result);
+  async destroy(req, res) {
+    await Product.find({id: req.body.id}).then(result => {
+      if (result != null) {
+        Product.deleteOne({id: result._id}).then(cb => {
+          res.send(cb);
+        }).catch(err => {
+          res.status(500).send({
+            error: `errcode(1): ${err.message}`
+          })
+        })
+      } else {
+        res.send('Product specified not found.');
+      }
     }).catch(err => {
       res.status(500).send({
-        err: `errcode(0): ${err.message}`
-      })
-    })
+        error: `errcode(0): ${err.message}`
+      });
+    });
   }
 
 };

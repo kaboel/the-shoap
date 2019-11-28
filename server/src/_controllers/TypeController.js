@@ -39,7 +39,7 @@ module.exports = {
   async destroy(req, res) {
     await Type.find({id: req.body.id}).then(result => {
       if (result != null) {
-        result.delete().then(cb => {
+        Type.deleteOne({id: result._id}).then(cb => {
           res.send(cb)
         }).catch(err => {
           res.status(500).send({
