@@ -23,6 +23,17 @@ const product = {
   }
 }
 
+const type = {
+  getAllTypes () {
+    return uri.get(`/types`)
+  },
+  deleteType (id) {
+    return uri.post(`/type/delete`, {
+      id: id
+    })
+  }
+}
+
 export default {
-  product
+  product, type
 }
