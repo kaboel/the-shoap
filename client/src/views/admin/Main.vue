@@ -29,9 +29,9 @@
   </div>
 </template>
 <script>
-import TsSidebar from "../../components/admin/TsSidebar";
-import {mapState} from "vuex";
-import Product from "./Product";
+import TsSidebar from '../../components/admin/TsSidebar'
+import {mapState} from 'vuex'
+import Product from './Product'
 
 export default {
   name: 'AdminMain',
@@ -39,7 +39,7 @@ export default {
   data () {
     return {
       activeSection: {
-        parent: 'Products',
+        parent: 'Products'
       }
     }
   },

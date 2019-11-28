@@ -35,30 +35,30 @@
 </template>
 
 <script>
-  import {mapState} from 'vuex'
+import {mapState} from 'vuex'
 
-  export default {
-    name: "TsSidebar",
-    data () {
-      return {
-        activeSection: {
-          parent: 'Products',
-        }
-      }
-    },
-    computed: mapState(['sectionActive']),
-    watch: {
-      sectionActive (newVal, oldVal) {
-        this.activeSection = newVal
-      }
-    },
-    methods: {
-      sectionTo (section) {
-        let store = this.$store;
-        store.dispatch('sectionTo', section);
+export default {
+  name: 'TsSidebar',
+  data () {
+    return {
+      activeSection: {
+        parent: 'Products'
       }
     }
+  },
+  computed: mapState(['sectionActive']),
+  watch: {
+    sectionActive (newVal, oldVal) {
+      this.activeSection = newVal
+    }
+  },
+  methods: {
+    sectionTo (section) {
+      let store = this.$store
+      store.dispatch('sectionTo', section)
+    }
   }
+}
 </script>
 
 <style scoped>

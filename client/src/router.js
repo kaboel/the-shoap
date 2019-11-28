@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Index from './views/client/Main'
 import About from './views/client/About'
-import Main from "./views/admin/Main";
+import Main from './views/admin/Main'
 
 Vue.use(Router)
 
@@ -30,11 +30,11 @@ export default new Router({
       component: Main,
       meta: {
         title: 'Admin Zone'
-      },
+      }
     },
     {
       path: '*',
       redirect: '/admin-secured'
-    },
+    }
   ]
 })

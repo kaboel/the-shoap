@@ -62,7 +62,7 @@ export default {
   watch: {
     contentOn (newVal, oldVal) {
       this.contentActive = newVal
-    },
+    }
   },
   mounted () {
     this.loadProducts()
