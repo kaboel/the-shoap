@@ -13,6 +13,7 @@
             <b-input
               v-model="productName"
               type="text"
+              autocomplete="off"
               required>
             </b-input>
           </b-field>
@@ -20,6 +21,7 @@
             <b-numberinput :editable="false"
                            size="is-small"
                            v-model="productDuration"
+                           autocomplete="off"
                            min="1"/>
           </b-field>
           <b-field label="Price (Rp.)" label-position="inside">
@@ -28,6 +30,7 @@
               v-model="moneyFormat"
               v-cleave="masks.numeral"
               @input.native="onInput"
+              autocomplete="off"
               required>
             </b-input>
           </b-field>
@@ -38,6 +41,7 @@
             <b-input maxlength="200"
                      type="textarea"
                      v-model="productDescription"
+                     autocomplete="off"
                      required/>
           </b-field>
         </div>

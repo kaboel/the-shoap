@@ -13,6 +13,7 @@
             <b-input
               v-model="typeName"
               type="text"
+              autocomplete="off"
               required>
             </b-input>
           </b-field>
@@ -24,6 +25,7 @@
               v-model="moneyFormat"
               v-cleave="masks.numeral"
               @input.native="onInput"
+              autocomplete="off"
               required>
             </b-input>
           </b-field>
