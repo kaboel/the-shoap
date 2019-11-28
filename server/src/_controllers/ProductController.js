@@ -13,7 +13,12 @@ module.exports = {
   },
 
   async store(req, res) {
-    const newProduct = new Product(req.body);
+    const newProduct = new Product({
+      name: req.body.name,
+      description: req.body.description,
+      price: req.body.price,
+      duration: req.body.duration
+    });
     await newProduct.save()
       .then(result => {
         res.json(result);
@@ -32,10 +37,6 @@ module.exports = {
         error: `errcode(0): ${err.message}`
       })
     })
-  },
-
-  async update(req, res) {
-
   },
 
   async delete(req, res) {
