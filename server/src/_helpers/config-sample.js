@@ -1,6 +1,8 @@
 module.exports = {
   name: 'shoap-server',
   port: '8089',
-  db: {},
+  db: {
+    uriString: ``
+  },
   secret: 'your-secret'
 };

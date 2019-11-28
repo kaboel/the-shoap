@@ -1,6 +1,12 @@
 <template>
   <section>
-    <div class="table-container">
+    <div class="loading"
+         v-if="allProducts == null">
+      Loading...
+    </div>
+
+    <div class="table-container"
+         v-if="allProducts != null">
       <table>
         <thead>
         <tr>
@@ -17,7 +23,7 @@
             <span class="subtitle is-size-xs fade">{{product._id}}</span>
           </td>
           <td>{{product.description}}</td>
-          <td>{{product.price}}</td>
+          <td>Rp. {{moneyFormat(product.price)}}</td>
           <td>
             <b-button class="is-danger" @click="deleteProduct(product._id)">
               <font-awesome-icon :icon="['fa', 'trash']"/>
@@ -57,13 +63,30 @@ export default {
         console.log(err.message)
       })
     },
-    async deleteProduct (id) {
-      await api.deleteProduct(id).then(res => {
-        console.log(res);
-        this.loadProducts();
-      }).catch(err => {
-        console.log(err.message);
+    deleteProduct (id) {
+      this.$buefy.dialog.confirm({
+        title: 'Delete Product',
+        message: 'Are you sure you want to <b>delete</b> this product? This action cannot be undone.',
+        confirmText: 'Delete this Product',
+        type: 'is-danger',
+        hasIcon: true,
+        icon: 'info-circle',
+        iconPack: 'fas',
+        size: 'is-small',
+        onConfirm: async () => {
+          await api.deleteProduct(id).then(res => {
+            console.log(res);
+            this.loadProducts();
+          }).catch(err => {
+            console.log(err.message);
+          })
+        }
       })
+    },
+    moneyFormat (number) {
+      return (number)
+          .toFixed(2)
+          .replace(/\d(?=(\d{3})+\.)/g, '$&,');
     }
   }
 }
@@ -74,5 +97,14 @@ export default {
 }
 td {
   vertical-align: middle !important;
+}
+.loading {
+  width: 100%;
+  min-height: 75vh;
+  line-height: 75vh;
+  font-size: 1rem;
+  font-weight: bolder;
+  color: #aaa;
+  text-align: center;
 }
 </style>
