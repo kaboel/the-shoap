@@ -37,5 +37,15 @@ module.exports = {
         error: `errcode(0): ${err.message}`
       })
     })
-  }
+  },
+
+  async findByStatus(req, res) {
+    await Order.find({status: req.params.status}).then(result => {
+      (result != null) ? res.json(result) : res.send('No Orders found')
+    }).catch(err => {
+      res.status(500).send({
+        error: `errcode(0): ${err.message}`
+      })
+    })
+  },
 };
