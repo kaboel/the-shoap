@@ -5,6 +5,10 @@ const CHILD_SCHEMA = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     required: true
   },
+  typeId: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true
+  },
   amount: {
     type: mongoose.Schema.Types.Number,
     required: true
