@@ -27,10 +27,10 @@ try {
       console.log(`Server started on port: ${port}...`);
     });
   } catch (e) {
-    console.log(`errcode(0): Server failed to start. ${e.message}`);
+    console.log(`errcode(1): Server failed to start. ${e.message}`);
   }
 } catch (e) {
-  console.log(`errcode(1): ${e.message}`);
+  console.log(`errcode(0): ${e.message}`);
 }
 
 
