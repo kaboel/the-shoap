@@ -6,7 +6,8 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "start": "./node_modules/nodemon/bin/nodemon.js src/app.js --exec 'npm run lint && node'",
+    "start-win": "node_modules/.bin/nodemon src/app.js --exec",
+    "start": "./node_modules/.bin/nodemon src/app.js --exec 'npm run lint && node'",
     "lint": "./node_modules/.bin/eslint src/*.js"
   },
   "devDependencies": {
