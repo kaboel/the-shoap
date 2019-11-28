@@ -8,6 +8,7 @@ module.exports = (App) => {
       .get(Order.index)
       .post(Order.store);
   App.get('/v0/order/:id', Order.findById);
+  App.get('/v0/order/:status', Order.findByStatus);
 
   // Product End-point
   App.route('/v0/products')
