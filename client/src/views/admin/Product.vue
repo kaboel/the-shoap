@@ -18,7 +18,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr v-for="product in allProducts" :key="product.id">
+        <tr v-for="product in allProducts" :key="product._id">
           <td>
             <span class="title is-size-6">{{product.name}}</span> <br/>
             <span class="subtitle is-size-xs fade">{{product._id}}</span>

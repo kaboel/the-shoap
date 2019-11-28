@@ -16,7 +16,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr v-for="type in allTypes" :key="type.id">
+        <tr v-for="type in allTypes" :key="type._id">
           <td>
             <span class="title is-size-6">{{type.name}}</span> <br/>
             <span class="subtitle is-size-xs fade">{{type._id}}</span>
