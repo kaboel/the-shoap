@@ -10,11 +10,11 @@ module.exports = (App) => {
       .post(Order.store);
 
   // Product End-point
-  App.get('/v0/product/:id', Product.findById);
   App.route('/v0/products')
       .get(Product.index)
-      .post(Product.store)
-      .delete(Product.destroy);
+      .post(Product.store);
+  App.get('/v0/product/:id', Product.findById);
+  App.post('/v0/product/delete', Product.destroy);
 
   // Type End-point
   App.get('/v0/type/:id', Type.findById);

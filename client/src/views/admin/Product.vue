@@ -1,10 +1,9 @@
 <template>
-  <div class="product-main">
+  <section>
     <div class="table-container">
       <table>
         <thead>
         <tr>
-          <th>_id</th>
           <th>Name</th>
           <th>Desc.</th>
           <th>Price (Rp.)</th>
@@ -13,12 +12,14 @@
         </thead>
         <tbody>
         <tr v-for="product in allProducts" :key="product.id">
-          <td>{{product._id}}</td>
-          <td>{{product.name}}</td>
+          <td>
+            <span class="title is-size-6">{{product.name}}</span> <br/>
+            <span class="subtitle is-size-xs fade">{{product._id}}</span>
+          </td>
           <td>{{product.description}}</td>
           <td>{{product.price}}</td>
           <td>
-            <b-button class="is-danger">
+            <b-button class="is-danger" @click="deleteProduct(product._id)">
               <font-awesome-icon :icon="['fa', 'trash']"/>
             </b-button>
           </td>
@@ -26,7 +27,7 @@
         </tbody>
       </table>
     </div>
-  </div>
+  </section>
 </template>
 <script>
 import api from '../../service/api'
@@ -55,12 +56,23 @@ export default {
       }).catch(err => {
         console.log(err.message)
       })
+    },
+    async deleteProduct (id) {
+      await api.deleteProduct(id).then(res => {
+        console.log(res);
+        this.loadProducts();
+      }).catch(err => {
+        console.log(err.message);
+      })
     }
   }
 }
 </script>
 <style scoped>
-.product-main {
-  padding: 10px
+.is-size-xs {
+  font-size: .7rem;
+}
+td {
+  vertical-align: middle !important;
 }
 </style>

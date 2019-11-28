@@ -69,4 +69,7 @@ nav.breadcrumb {
 .box {
   height: 92.5vh !important;
 }
+.content {
+  padding: 5px 20px 10px 20px;
+}
 </style>
