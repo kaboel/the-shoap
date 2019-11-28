@@ -13,14 +13,14 @@ import {
   faCopyright, faTimes, faLink, faHome,
   faInfo, faInfoCircle, faBoxes, faList,
   faPlusCircle, faTrash, faExclamationCircle,
-  faMinus, faPlus
+  faMinus, faPlus, faCheck, faSyncAlt
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
   faCopyright, faTimes, faHome, faLink,
   faInfo, faInfoCircle, faBoxes, faList,
   faPlusCircle, faTrash, faExclamationCircle,
-  faPlus, faMinus
+  faPlus, faMinus, faCheck, faSyncAlt
 )
 
 Vue.config.productionTip = false

@@ -39,6 +39,22 @@
            :class="{'is-active' : activeSection.parent === 'Orders'}">
           <font-awesome-icon :icon="['fa', 'info']"/> Orders
         </a>
+
+        <ul>
+          <li>
+            <a @click="sectionTo({parent: 'Orders', child: 'Complete'})"
+               :class="{'is-active' : activeSection.child === 'Complete'}">
+              <font-awesome-icon :icon="['fa', 'check']"/> Complete
+            </a>
+          </li>
+          <li>
+            <a @click="sectionTo({parent: 'Orders', child: 'In Queue'})"
+               :class="{'is-active' : activeSection.child === 'In Queue'}">
+              <font-awesome-icon :icon="['fa', 'sync-alt']"/> In Queue
+            </a>
+          </li>
+        </ul>
+
       </li>
     </ul>
   </aside>
