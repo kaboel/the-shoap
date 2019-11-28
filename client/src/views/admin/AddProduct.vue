@@ -103,7 +103,7 @@ export default {
           price: this.productPrice
         }
 
-        await api.product.storeProduct(newProduct).then(result => {
+        await api.product.storeProduct(newProduct).then(() => {
           this.$store.dispatch('sectionTo', {parent: 'Products'})
         }).catch(err => {
           console.log(err)

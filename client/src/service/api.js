@@ -31,6 +31,12 @@ const type = {
     return uri.post(`/type/delete`, {
       id: id
     })
+  },
+  storeType (type) {
+    return uri.post(`/types`, {
+      name: type.name,
+      extraPrice: type.extraPrice
+    })
   }
 }
 
