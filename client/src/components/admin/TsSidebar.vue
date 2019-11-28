@@ -3,17 +3,30 @@
     <p class="menu-label is-hidden-touch">Navigation</p>
     <ul class="menu-list">
       <li>
-        <a @click="sectionTo('Products')" :class="{'is-active' : productsActive}">
+        <a @click="sectionTo({parent: 'Products'})"
+           :class="{'is-active' : activeSection.parent === 'Products'}">
           <font-awesome-icon :icon="['fa', 'boxes']"/> Products
         </a>
+
+        <ul>
+          <li>
+            <a @click="sectionTo({parent: 'Products', child: 'New Product'})"
+               :class="{'is-active' : activeSection.child === 'New Product'}">
+              <font-awesome-icon :icon="['fa', 'plus-circle']"/> Add New
+            </a>
+          </li>
+        </ul>
+
       </li>
       <li>
-        <a @click="sectionTo('Types')" :class="{'is-active' : typesActive}">
+        <a @click="sectionTo({parent: 'Types'})"
+           :class="{'is-active' : activeSection.parent === 'Types'}">
           <font-awesome-icon :icon="['fa', 'list']"/> Types
         </a>
       </li>
       <li>
-        <a @click="sectionTo('Orders')" :class="{'is-active' : ordersActive}">
+        <a @click="sectionTo({parent: 'Orders'})"
+           :class="{'is-active' : activeSection.parent === 'Orders'}">
           <font-awesome-icon :icon="['fa', 'info']"/> Orders
         </a>
       </li>
@@ -28,17 +41,15 @@
     name: "TsSidebar",
     data () {
       return {
-        productsActive: true,
-        typesActive: false,
-        ordersActive: false
+        activeSection: {
+          parent: 'Products',
+        }
       }
     },
     computed: mapState(['sectionActive']),
     watch: {
       sectionActive (newVal, oldVal) {
-        (newVal === 'Products') ? this.productsActive = true : this.productsActive = false;
-        (newVal === 'Types') ? this.typesActive = true : this.typesActive = false;
-        (newVal === 'Orders') ? this.ordersActive = true : this.ordersActive = false;
+        this.activeSection = newVal
       }
     },
     methods: {

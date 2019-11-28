@@ -1,15 +1,18 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import api from './service/api'
 
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-    products: {},
+    products: null,
     cart: [],
     contentOn: false,
     pageActive: null,
-    sectionActive: 'Products'
+    sectionActive: {
+      parent: 'Products',
+    }
   },
   mutations: {
     contentOff (state) {
@@ -24,6 +27,9 @@ const store = new Vuex.Store({
     },
     sectionTo (state, section) {
       state.sectionActive = section
+    },
+    products (state, products) {
+      state.products = products
     }
   },
   actions: {
@@ -38,6 +44,9 @@ const store = new Vuex.Store({
     },
     sectionTo ({commit}, section) {
       commit('sectionTo', section)
+    },
+    fillProducts ({commit}, products) {
+      commit('products', products)
     }
   }
 })
