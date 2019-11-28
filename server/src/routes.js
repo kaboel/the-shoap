@@ -1,5 +1,6 @@
 const Order = require('./_controllers/OrderController');
 const Product = require('./_controllers/ProductController');
+const Type = require('./_controllers/TypeController');
 
 module.exports = (App) => {
   // Order End-point
@@ -12,5 +13,13 @@ module.exports = (App) => {
   App.get('/v0/product/:id', Product.findById);
   App.route('/v0/products')
       .get(Product.index)
-      .post(Product.store);
+      .post(Product.store)
+      .delete(Product.destroy);
+
+  // Type End-point
+  App.get('/v0/type/:id', Type.findById);
+  App.route('/v0/types')
+      .get(Type.index)
+      .post(Type.store)
+      .delete(Type.destroy);
 };
