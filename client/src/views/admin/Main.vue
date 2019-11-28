@@ -23,9 +23,10 @@
         <div class="navbar-divider"/>
         <div class="content">
           <Product v-if="activeSection.parent === 'Products' && !activeSection.hasOwnProperty('child')"/>
-          <Type v-if="activeSection.parent === 'Types' && !activeSection.hasOwnProperty('child')"/>
-
           <AddProduct v-if="activeSection.parent === 'Products' && activeSection.child === 'New Product'"/>
+
+          <Type v-if="activeSection.parent === 'Types' && !activeSection.hasOwnProperty('child')"/>
+          <AddType v-if="activeSection.parent === 'Types' && activeSection.child === 'New Type'"/>
         </div>
       </div>
     </div>
@@ -37,10 +38,11 @@ import {mapState} from 'vuex'
 import Product from './Product'
 import AddProduct from './AddProduct'
 import Type from './Type'
+import AddType from './AddType'
 
 export default {
   name: 'AdminMain',
-  components: {Type, AddProduct, Product, TsSidebar},
+  components: {AddType, Type, AddProduct, Product, TsSidebar},
   data () {
     return {
       activeSection: {

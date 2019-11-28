@@ -23,6 +23,16 @@
            :class="{'is-active' : activeSection.parent === 'Types'}">
           <font-awesome-icon :icon="['fa', 'list']"/> Types
         </a>
+
+        <ul>
+          <li>
+            <a @click="sectionTo({parent: 'Types', child: 'New Type'})"
+               :class="{'is-active' : activeSection.child === 'New Type'}">
+              <font-awesome-icon :icon="['fa', 'plus-circle']"/> Add New
+            </a>
+          </li>
+        </ul>
+
       </li>
       <li>
         <a @click="sectionTo({parent: 'Orders'})"
