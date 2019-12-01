@@ -42,14 +42,14 @@
 
         <ul>
           <li>
-            <a @click="sectionTo({parent: 'Orders', child: 'Complete'})"
-               :class="{'is-active' : activeSection.child === 'Complete'}">
+            <a @click="sectionTo({parent: 'Orders', status: 'Complete'})"
+               :class="{'is-active' : activeSection.status === 'Complete'}">
               <font-awesome-icon :icon="['fa', 'check']"/> Complete
             </a>
           </li>
           <li>
-            <a @click="sectionTo({parent: 'Orders', child: 'In Queue'})"
-               :class="{'is-active' : activeSection.child === 'In Queue'}">
+            <a @click="sectionTo({parent: 'Orders', status: 'In Queue'})"
+               :class="{'is-active' : activeSection.status === 'In Queue'}">
               <font-awesome-icon :icon="['fa', 'sync-alt']"/> In Queue
             </a>
           </li>

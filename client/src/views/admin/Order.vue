@@ -5,12 +5,16 @@
       Loading...
     </div>
 
+    <div class="loading" v-if="allOrders != null && allOrders.length < 1">
+      No Data
+    </div>
+
     <div class="table-container"
-         v-if="allOrders != null">
+         v-if="allOrders != null && allOrders.length > 0">
       <table>
         <thead>
         <tr>
-          <th>Itinerary ID</th>
+          <th>Product ID</th>
           <th>OD</th>
           <th>Status</th>
           <th>Customer Name</th>
@@ -67,6 +71,8 @@
         </tr>
         </tbody>
       </table>
+
+      {{ status }}
     </div>
   </section>
 </template>
@@ -78,7 +84,7 @@ export default {
   name: 'Order',
   data () {
     return {
-      allOrders: null
+      allOrders: null,
     }
   },
   computed: mapState(['sectionActive', 'orders', 'types', 'products']),
@@ -94,9 +100,7 @@ export default {
     }
   },
   mounted () {
-    this.loadOrders()
-    this.loadProducts()
-    this.loadTypes()
+    this.loadData()
   },
   methods: {
     async loadOrders () {
@@ -121,6 +125,12 @@ export default {
       }).catch(err => {
         console.log(err.message)
       })
+    },
+
+    loadData () {
+      this.loadOrders()
+      this.loadProducts()
+      this.loadTypes()
     },
 
     formatDate (plain) {

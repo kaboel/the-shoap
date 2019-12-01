@@ -14,6 +14,11 @@
                 {{ activeSection.parent }}
               </a>
             </li>
+            <li v-if="activeSection.hasOwnProperty('status')" class="is-active">
+              <a>
+                {{ activeSection.status }}
+              </a>
+            </li>
             <li v-if="activeSection.hasOwnProperty('child')" class="is-active">
               <a>
                 <span v-if="!activeSection.hasOwnProperty('id')">
@@ -39,7 +44,9 @@
           <Type v-if="activeSection.parent === 'Types' && !activeSection.hasOwnProperty('child')"/>
           <AddType v-if="activeSection.parent === 'Types' && activeSection.child === 'New Type'"/>
 
-          <Order v-if="activeSection.parent === 'Orders' && !activeSection.hasOwnProperty('child')"/>
+          <Order v-if="activeSection.parent === 'Orders' && !activeSection.hasOwnProperty('child') && !activeSection.hasOwnProperty('status')"/>
+          <OrderComplete v-if="activeSection.parent === 'Orders' && activeSection.hasOwnProperty('status') && activeSection.status === 'Complete'"/>
+          <OrderInQueue v-if="activeSection.parent === 'Orders' && activeSection.hasOwnProperty('status') && activeSection.status === 'In Queue'"/>
           <OrderDetail v-if="activeSection.parent === 'Orders' && activeSection.hasOwnProperty('id')"/>
         </div>
       </div>
@@ -55,10 +62,12 @@ import Type from './Type'
 import AddType from './AddType'
 import Order from './Order'
 import OrderDetail from './OrderDetail'
+import OrderComplete from './OrdersComplete'
+import OrderInQueue from "./OrdersInQueue";
 
 export default {
   name: 'AdminMain',
-  components: {OrderDetail, Order, AddType, Type, AddProduct, Product, TsSidebar},
+  components: {OrderInQueue, OrderComplete, OrderDetail, Order, AddType, Type, AddProduct, Product, TsSidebar},
   data () {
     return {
       activeSection: {
