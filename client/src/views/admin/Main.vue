@@ -27,6 +27,8 @@
 
           <Type v-if="activeSection.parent === 'Types' && !activeSection.hasOwnProperty('child')"/>
           <AddType v-if="activeSection.parent === 'Types' && activeSection.child === 'New Type'"/>
+
+          <Order v-if="activeSection.parent === 'Orders' && !activeSection.hasOwnProperty('child')"/>
         </div>
       </div>
     </div>
@@ -39,10 +41,11 @@ import Product from './Product'
 import AddProduct from './AddProduct'
 import Type from './Type'
 import AddType from './AddType'
+import Order from './Order'
 
 export default {
   name: 'AdminMain',
-  components: {AddType, Type, AddProduct, Product, TsSidebar},
+  components: {Order, AddType, Type, AddProduct, Product, TsSidebar},
   data () {
     return {
       activeSection: {

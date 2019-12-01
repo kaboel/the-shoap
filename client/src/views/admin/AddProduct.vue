@@ -60,11 +60,11 @@ import Cleave from 'cleave.js'
 
 const cleave = {
   name: 'cleave',
-  bind(el, binding) {
+  bind (el, binding) {
     const input = el.querySelector('#currency')
     input._vCleave = new Cleave(input, binding.value)
   },
-  unbind(el) {
+  unbind (el) {
     const input = el.querySelector('#currency')
     input._vCleave.destroy()
   }
@@ -84,12 +84,12 @@ export default {
         numeral: {
           numeral: true,
           numeralDecimalScale: 7
-        },
+        }
       }
     }
   },
   methods: {
-    onInput(event) {
+    onInput (event) {
       this.productPrice = event.target._vCleave.getRawValue()
       this.moneyFormat = event.target._vCleave.getFormattedValue()
     },
@@ -112,7 +112,6 @@ export default {
         }).catch(err => {
           console.log(err)
         })
-
       } else {
         this.$buefy.toast.open({
           duration: 5000,

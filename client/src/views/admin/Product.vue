@@ -77,18 +77,17 @@ export default {
         size: 'is-small',
         onConfirm: async () => {
           await api.product.deleteProduct(id).then(res => {
-            console.log(res);
-            this.loadProducts();
+            console.log(res)
+            this.loadProducts()
           }).catch(err => {
-            console.log(err.message);
+            console.log(err.message)
           })
         }
       })
     },
     moneyFormat (number) {
-      return (number)
-          .toFixed(2)
-          .replace(/\d(?=(\d{3})+\.)/g, '$&,');
+      return (number).toFixed(2)
+        .replace(/\d(?=(\d{3})+\.)/g, '$&,')
     }
   }
 }
