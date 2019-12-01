@@ -16,18 +16,17 @@
           <th>Email</th>
           <th>Pick Up / Deliver</th>
           <th>Order Summary</th>
-          <th>Subtotal (Rp.)</th>
           <th/>
         </tr>
         </thead>
         <tbody>
         <tr v-for="order in allOrders" :key="order._id">
-          <td width="10">
+          <td>
             <span class="tag">
               <b>#</b>{{order._id}}
             </span>
           </td>
-          <td width="10">
+          <td>
             <span class="tag is-success" v-if="order.status">
               <font-awesome-icon :icon="['fa', 'check']"/>&nbsp;&nbsp;Complete
             </span>
@@ -35,22 +34,19 @@
               <font-awesome-icon :icon="['fa', 'sync-alt']"/>&nbsp;&nbsp;In Queue
             </span>
           </td>
-          <td width="200">
+          <td>
             {{ order.name }}
           </td>
-          <td width="200">
+          <td>
             {{ order.email }}
           </td>
           <td>
             {{ order.address }}
           </td>
           <td>
-            <button class="button is-info is-small">
+            <button class="button is-info is-small" @click="sectionTo({parent: 'Orders', child: 'Detail', id: order._id})">
               View Summary &nbsp;&nbsp; <font-awesome-icon :icon="['fa', 'arrow-right']"/>
             </button>
-          </td>
-          <td>
-
           </td>
           <td>
             <button class="button is-success is-small" :disabled="order.status">
@@ -71,21 +67,25 @@ export default {
   name: 'Order',
   data () {
     return {
-      allOrders: null,
-      allProducts: null
+      allOrders: null
     }
   },
-  computed: mapState(['orders', 'products']),
+  computed: mapState(['orders', 'types', 'products']),
   watch: {
     orders (newVal, oldVal) {
       this.allOrders = newVal
+    },
+    types (newVal, oldVal) {
+      this.allTypes = newVal
     },
     products (newVal, oldVal) {
       this.allProducts = newVal
     }
   },
   mounted () {
-    this.filterOrders()
+    this.loadOrders()
+    this.loadProducts()
+    this.loadTypes()
   },
   methods: {
     async loadOrders () {
@@ -104,18 +104,22 @@ export default {
       })
     },
 
-    filterOrders () {
-      this.loadProducts()
-      this.loadOrders()
-
-      setTimeout(() => {
-        this.allOrders()
-      }, 3000)
+    async loadTypes () {
+      await api.type.getAllTypes().then(res => {
+        this.$store.dispatch('fillTypes', res.data)
+      }).catch(err => {
+        console.log(err.message)
+      })
     },
 
     moneyFormat (number) {
       return (number).toFixed(2)
         .replace(/\d(?=(\d{3})+\.)/g, '$&,')
+    },
+
+    sectionTo (section) {
+      let store = this.$store
+      store.dispatch('sectionTo', section)
     }
   }
 }
