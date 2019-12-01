@@ -71,7 +71,7 @@ export default {
   data () {
     return {
       activeSection: {
-        parent: 'Products'
+        parent: 'Orders'
       },
     }
   },

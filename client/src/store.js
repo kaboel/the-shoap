@@ -13,7 +13,7 @@ const store = new Vuex.Store({
     contentOn: false,
     pageActive: null,
     sectionActive: {
-      parent: 'Products'
+      parent: 'Orders'
     }
   },
   mutations: {
