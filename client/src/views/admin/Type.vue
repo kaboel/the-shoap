@@ -11,7 +11,7 @@
         <thead>
         <tr>
           <th>Name</th>
-          <th>Extra Price (Rp.)</th>
+          <th>Extra Price (IDR)</th>
           <th/>
         </tr>
         </thead>
@@ -21,7 +21,7 @@
             <span class="title is-size-6">{{type.name}}</span> <br/>
             <span class="tag is-size-xs fade"><b>#</b>{{type._id}}</span>
           </td>
-          <td>Rp. {{moneyFormat(type.extraPrice)}}</td>
+          <td>{{moneyFormat(type.extraPrice)}}</td>
           <td>
             <b-button class="is-danger" @click="deleteType(type._id)">
               <font-awesome-icon :icon="['fa', 'trash']"/>
@@ -97,8 +97,11 @@ export default {
       })
     },
     moneyFormat (number) {
-      return (number).toFixed(2)
-        .replace(/\d(?=(\d{3})+\.)/g, '$&,')
+      return new Intl.NumberFormat('en-IDR', {
+        style: 'currency',
+        currency: 'IDR',
+        minimumFractionDigits: 2,
+      }).format(number);
     }
   }
 }

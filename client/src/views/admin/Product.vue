@@ -13,7 +13,7 @@
           <th>Name</th>
           <th>Desc.</th>
           <th>Duration (day(s))</th>
-          <th>Price (Rp.)</th>
+          <th>Price (IDR)</th>
           <th/>
         </tr>
         </thead>
@@ -25,7 +25,7 @@
           </td>
           <td>{{product.description}}</td>
           <td>{{product.duration}} day(s)</td>
-          <td>Rp. {{moneyFormat(product.price)}}</td>
+          <td>{{moneyFormat(product.price)}}</td>
           <td>
             <b-button class="is-danger" @click="deleteProduct(product._id)">
               <font-awesome-icon :icon="['fa', 'trash']"/>
@@ -100,8 +100,11 @@ export default {
       })
     },
     moneyFormat (number) {
-      return (number).toFixed(2)
-        .replace(/\d(?=(\d{3})+\.)/g, '$&,')
+      return new Intl.NumberFormat('en-IDR', {
+        style: 'currency',
+        currency: 'IDR',
+        minimumFractionDigits: 2,
+      }).format(number);
     }
   }
 }

@@ -24,7 +24,7 @@
                            autocomplete="off"
                            min="1"/>
           </b-field>
-          <b-field label="Price (Rp.)" label-position="inside">
+          <b-field label="Price (IDR)" label-position="inside">
             <b-input
               id="currency"
               v-model="moneyFormat"

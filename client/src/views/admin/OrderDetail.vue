@@ -33,7 +33,7 @@
               <b-input v-model="order.phone" disabled/>
               <p class="control">
                 <b-tooltip label="Whatsapp" position="is-right">
-                  <b-button class="button">
+                  <b-button class="button" @click="whatsappTo(order.phone)">
                     <font-awesome-icon :icon="['fab', 'whatsapp']"/>
                   </b-button>
                 </b-tooltip>
@@ -43,7 +43,7 @@
               <b-input v-model="order.email" disabled/>
               <p class="control">
                 <b-tooltip label="Email" position="is-right">
-                  <b-button class="button">
+                  <b-button class="button" @click="mailTo(order.email)">
                     <font-awesome-icon :icon="['fa', 'mail-bulk']"/>
                   </b-button>
                 </b-tooltip>
@@ -199,8 +199,11 @@ export default {
     },
 
     moneyFormat (number) {
-      return (number).toFixed(2)
-        .replace(/\d(?=(\d{3})+\.)/g, '$&,')
+      return new Intl.NumberFormat('en-IDR', {
+        style: 'currency',
+        currency: 'IDR',
+        minimumFractionDigits: 2,
+      }).format(number);
     },
 
     formatDate (plain) {
@@ -215,6 +218,19 @@ export default {
 
       return `${M}/${d}/${y} | ${H}:${m}`
     },
+
+    mailTo (address) {
+      window.location.href = `mailto:${address}`
+    },
+
+    whatsappTo (phone) {
+      let number = phone;
+      if (phone.substring(0, 2) === '62') {
+        window.open(`https://wa.me/${phone}`, '_blank').focus()
+      } else if (phone.substring(0, 1) === '0') {
+        window.open(`https://wa.me/62${phone.substring(1)}`, '_blank').focus()
+      }
+    }
   }
 }
 </script>

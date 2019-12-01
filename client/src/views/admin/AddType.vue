@@ -19,7 +19,7 @@
           </b-field>
         </div>
         <div class="column">
-          <b-field label="Extra Price (Rp.)" label-position="inside">
+          <b-field label="Extra Price (IDR)" label-position="inside">
             <b-input
               id="currency"
               v-model="moneyFormat"
