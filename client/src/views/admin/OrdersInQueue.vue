@@ -6,7 +6,7 @@
     </div>
 
     <div class="loading" v-if="allOrders != null && allOrders.length < 1">
-      No Data
+      All Orders are Complete! :)
     </div>
 
     <div class="table-container"
@@ -72,92 +72,92 @@
   </section>
 </template>
 <script>
-  import api from '../../service/api'
-  import {mapState} from 'vuex'
+import api from '../../service/api'
+import {mapState} from 'vuex'
 
-  export default {
-    name: 'OrderInQueue',
-    data () {
-      return {
-        allOrders: null
-      }
+export default {
+  name: 'OrderInQueue',
+  data () {
+    return {
+      allOrders: null
+    }
+  },
+  computed: mapState(['sectionActive', 'orders', 'types', 'products']),
+  watch: {
+    orders (newVal, oldVal) {
+      this.allOrders = newVal
+    }
+  },
+  mounted () {
+    this.loadData()
+  },
+  methods: {
+    async loadOrders () {
+      await api.order.getOrderByStatus(false).then(res => {
+        this.$store.dispatch('fillOrders', res.data)
+      }).catch(err => {
+        console.log(err)
+      })
     },
-    computed: mapState(['sectionActive', 'orders', 'types', 'products']),
-    watch: {
-      orders (newVal, oldVal) {
-        this.allOrders = newVal
-      }
+
+    async loadProducts () {
+      await api.product.getAllProduct().then(res => {
+        this.$store.dispatch('fillProducts', res.data)
+      }).catch(err => {
+        console.log(err.message)
+      })
     },
-    mounted () {
-      this.loadData()
+
+    async loadTypes () {
+      await api.type.getAllTypes().then(res => {
+        this.$store.dispatch('fillTypes', res.data)
+      }).catch(err => {
+        console.log(err.message)
+      })
     },
-    methods: {
-      async loadOrders () {
-        await api.order.getOrderByStatus(false).then(res => {
-          this.$store.dispatch('fillOrders', res.data)
-        }).catch(err => {
-          console.log(err)
+
+    async setComplete(id) {
+      await api.order.setComplete({id: id, status: true}).then(result => {
+        this.$store.dispatch('sectionTo', {parent: 'Orders', status: 'Complete'})
+        this.$buefy.toast.open({
+          duration: 3000,
+          message: `Order Complete!`,
+          type: 'is-success'
         })
-      },
-
-      async loadProducts () {
-        await api.product.getAllProduct().then(res => {
-          this.$store.dispatch('fillProducts', res.data)
-        }).catch(err => {
-          console.log(err.message)
+      }).catch(err => {
+        this.$buefy.toast.open({
+          duration: 3000,
+          message: err,
+          type: 'is-danger'
         })
-      },
+      })
+    },
 
-      async loadTypes () {
-        await api.type.getAllTypes().then(res => {
-          this.$store.dispatch('fillTypes', res.data)
-        }).catch(err => {
-          console.log(err.message)
-        })
-      },
+    loadData () {
+      this.loadOrders()
+      this.loadProducts()
+      this.loadTypes()
+    },
 
-      async setComplete(id) {
-        await api.order.setComplete({id: id, status: true}).then(result => {
-          this.$store.dispatch('sectionTo', {parent: 'Orders', status: 'Complete'})
-          this.$buefy.toast.open({
-            duration: 3000,
-            message: `Order Complete!`,
-            type: 'is-success'
-          })
-        }).catch(err => {
-          this.$buefy.toast.open({
-            duration: 3000,
-            message: err,
-            type: 'is-danger'
-          })
-        })
-      },
+    formatDate (plain) {
+      let date = new Date(plain)
+      let d = date.getDate()
+      let M = date.getMonth()
+      let y = date.getFullYear()
 
-      loadData () {
-        this.loadOrders()
-        this.loadProducts()
-        this.loadTypes()
-      },
+      let H = date.getHours()
+      let m = date.getMinutes()
+      let a = date.get
 
-      formatDate (plain) {
-        let date = new Date(plain)
-        let d = date.getDate()
-        let M = date.getMonth()
-        let y = date.getFullYear()
+      return `${M}/${d}/${y} | ${H}:${m}`
+    },
 
-        let H = date.getHours()
-        let m = date.getMinutes()
-        let a = date.get
-
-        return `${M}/${d}/${y} | ${H}:${m}`
-      },
-
-      sectionTo (section) {
-        let store = this.$store
-        store.dispatch('sectionTo', section)
-      }
+    sectionTo (section) {
+      let store = this.$store
+      store.dispatch('sectionTo', section)
     }
   }
+}
 </script>
 <style scoped>
   .is-size-xs {
@@ -170,7 +170,7 @@
     width: 100%;
     min-height: 75vh;
     line-height: 75vh;
-    font-size: 1.3rem;
+    font-size: 1.4rem;
     font-weight: bolder;
     color: #aaa;
     text-align: center;
