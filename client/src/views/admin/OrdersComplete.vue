@@ -5,8 +5,12 @@
       Loading...
     </div>
 
+    <div class="loading" v-if="allOrders != null && allOrders.length < 1">
+      No Data
+    </div>
+
     <div class="table-container"
-         v-if="allOrders != null">
+         v-if="allOrders != null && allOrders.length > 0">
       <table>
         <thead>
         <tr>
