@@ -15,10 +15,6 @@ const CHILD_SCHEMA = mongoose.Schema({
   },
   note: {
     type: mongoose.Schema.Types.String,
-  },
-  status: {
-    type: mongoose.Schema.Types.Boolean,
-    default: false
   }
 });
 
