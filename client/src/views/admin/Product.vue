@@ -62,7 +62,12 @@ export default {
       await api.product.getAllProduct().then(res => {
         this.$store.dispatch('fillProducts', res.data)
       }).catch(err => {
-        console.log(err.message)
+        this.$buefy.toast.open({
+          duration: 5000,
+          message: err,
+          position: 'is-top',
+          type: 'is-danger'
+        })
       })
     },
     deleteProduct (id) {
@@ -79,8 +84,17 @@ export default {
           await api.product.deleteProduct(id).then(res => {
             console.log(res)
             this.loadProducts()
+            this.$buefy.toast.open({
+              duration: 3000,
+              message: `Product deleted!`,
+              type: 'is-success'
+            })
           }).catch(err => {
-            console.log(err.message)
+            this.$buefy.toast.open({
+              duration: 3000,
+              message: err,
+              type: 'is-danger'
+            })
           })
         }
       })

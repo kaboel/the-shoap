@@ -90,14 +90,23 @@ export default {
 
         await api.type.storeType(newType).then(() => {
           this.$store.dispatch('sectionTo', {parent: 'Types'})
+          this.$buefy.toast.open({
+            duration: 3000,
+            message: 'New Type added!',
+            type: 'is-success'
+          })
         }).catch(err => {
-          console.log(err)
+          this.$buefy.toast.open({
+            duration: 3000,
+            message: err,
+            position: 'is-top',
+            type: 'is-danger'
+          })
         })
       } else {
         this.$buefy.toast.open({
-          duration: 5000,
+          duration: 3000,
           message: 'All fields are required.',
-          position: 'is-top',
           type: 'is-danger'
         })
       }

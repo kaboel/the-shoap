@@ -58,7 +58,12 @@ export default {
       await api.type.getAllTypes().then(res => {
         this.$store.dispatch('fillTypes', res.data)
       }).catch(err => {
-        console.log(err.message)
+        this.$buefy.toast.open({
+          duration: 5000,
+          message: err,
+          position: 'is-top',
+          type: 'is-danger'
+        })
       })
     },
     deleteType (id) {
@@ -73,10 +78,20 @@ export default {
         size: 'is-small',
         onConfirm: async () => {
           await api.type.deleteType(id).then(res => {
-            console.log(res)
             this.loadTypes()
+            this.$buefy.toast.open({
+              duration: 5000,
+              message: `Type deleted!`,
+              position: 'is-top',
+              type: 'is-danger'
+            })
           }).catch(err => {
-            console.log(err.message)
+            this.$buefy.toast.open({
+              duration: 5000,
+              message: err,
+              position: 'is-top',
+              type: 'is-danger'
+            })
           })
         }
       })

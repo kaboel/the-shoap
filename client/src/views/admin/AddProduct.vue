@@ -109,8 +109,18 @@ export default {
 
         await api.product.storeProduct(newProduct).then(() => {
           this.$store.dispatch('sectionTo', {parent: 'Products'})
+          this.$buefy.toast.open({
+            duration: 3000,
+            message: 'New Product added!',
+            type: 'is-success'
+          })
         }).catch(err => {
-          console.log(err)
+          this.$buefy.toast.open({
+            duration: 3000,
+            message: err,
+            position: 'is-top',
+            type: 'is-danger'
+          })
         })
       } else {
         this.$buefy.toast.open({
