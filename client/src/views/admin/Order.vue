@@ -71,8 +71,6 @@
         </tr>
         </tbody>
       </table>
-
-      {{ status }}
     </div>
   </section>
 </template>
