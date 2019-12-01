@@ -89,12 +89,6 @@ export default {
   watch: {
     orders (newVal, oldVal) {
       this.allOrders = newVal
-    },
-    types (newVal, oldVal) {
-      this.allTypes = newVal
-    },
-    products (newVal, oldVal) {
-      this.allProducts = newVal
     }
   },
   mounted () {
