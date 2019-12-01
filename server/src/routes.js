@@ -6,9 +6,8 @@ const prefix = '/v0';
 
 module.exports = (App) => {
   // Order End-point
-  App.route(`${prefix}/v0/orders`)
-      .get(Order.index)
-      .post(Order.store);
+  App.get(`${prefix}/orders`, Order.index);
+  App.post(`${prefix}/orders`, Order.store);
   App.post(`${prefix}/order/update`, Order.updateStatus);
   App.get(`${prefix}/order/:id`, Order.findById);
   App.get(`${prefix}/orders/:status`, Order.findByStatus);
