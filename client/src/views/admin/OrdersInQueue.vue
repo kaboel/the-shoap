@@ -14,7 +14,7 @@
       <table>
         <thead>
         <tr>
-          <th>Product ID</th>
+          <th>Order ID</th>
           <th>OD</th>
           <th>Status</th>
           <th>Customer Name</th>
