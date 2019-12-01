@@ -61,7 +61,7 @@
             </button>
           </td>
           <td>
-            <button class="button is-success is-small">
+            <button class="button is-success is-small" @click="setComplete(order._id)">
               Complete Order&nbsp;&nbsp;<font-awesome-icon :icon="['fa', 'check']"/>
             </button>
           </td>
@@ -113,6 +113,23 @@
           this.$store.dispatch('fillTypes', res.data)
         }).catch(err => {
           console.log(err.message)
+        })
+      },
+
+      async setComplete(id) {
+        await api.order.setComplete({id: id, status: true}).then(result => {
+          this.$store.dispatch('sectionTo', {parent: 'Orders', status: 'Complete'})
+          this.$buefy.toast.open({
+            duration: 3000,
+            message: `Order Complete!`,
+            type: 'is-success'
+          })
+        }).catch(err => {
+          this.$buefy.toast.open({
+            duration: 3000,
+            message: err,
+            type: 'is-danger'
+          })
         })
       },
 
