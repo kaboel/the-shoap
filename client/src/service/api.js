@@ -52,6 +52,9 @@ const order = {
   },
   getOrderById (id) {
     return uri.get(`/order/${id}`)
+  },
+  getOrderByStatus (status) {
+    return uri.get(`/orders/${status}`)
   }
 }
 
