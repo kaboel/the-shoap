@@ -11,6 +11,7 @@
         <thead>
         <tr>
           <th>Itinerary ID</th>
+          <th>OD</th>
           <th>Status</th>
           <th>Customer Name</th>
           <th>Email</th>
@@ -27,12 +28,22 @@
             </span>
           </td>
           <td>
-            <span class="tag is-success" v-if="order.status">
-              <font-awesome-icon :icon="['fa', 'check']"/>&nbsp;&nbsp;Complete
-            </span>
-            <span class="tag is-warning" v-else>
-              <font-awesome-icon :icon="['fa', 'sync-alt']"/>&nbsp;&nbsp;In Queue
-            </span>
+            {{ formatDate(order.createdAt) }}
+          </td>
+          <td>
+            <div class="control">
+              <b-taglist attached>
+                <b-tag type="is-success" v-if="order.status">
+                  <font-awesome-icon :icon="['fa', 'check']"/>
+                </b-tag>
+                <b-tag type="is-warning" v-if="!order.status">
+                  <font-awesome-icon :icon="['fa', 'sync-alt']"/>
+                </b-tag>
+                <b-tag type="is-dark">
+                  {{ formatDate(order.updatedAt) }}
+                </b-tag>
+              </b-taglist>
+            </div>
           </td>
           <td>
             {{ order.name }}
@@ -45,12 +56,12 @@
           </td>
           <td>
             <button class="button is-info is-small" @click="sectionTo({parent: 'Orders', child: 'Detail', id: order._id})">
-              View Summary &nbsp;&nbsp; <font-awesome-icon :icon="['fa', 'arrow-right']"/>
+              View Summary&nbsp;&nbsp;<font-awesome-icon :icon="['fa', 'arrow-right']"/>
             </button>
           </td>
           <td>
             <button class="button is-success is-small" :disabled="order.status">
-              Set as Complete &nbsp;&nbsp; <font-awesome-icon :icon="['fa', 'check']"/>
+              Complete Order&nbsp;&nbsp;<font-awesome-icon :icon="['fa', 'check']"/>
             </button>
           </td>
         </tr>
@@ -70,7 +81,7 @@ export default {
       allOrders: null
     }
   },
-  computed: mapState(['orders', 'types', 'products']),
+  computed: mapState(['sectionActive', 'orders', 'types', 'products']),
   watch: {
     orders (newVal, oldVal) {
       this.allOrders = newVal
@@ -112,9 +123,13 @@ export default {
       })
     },
 
-    moneyFormat (number) {
-      return (number).toFixed(2)
-        .replace(/\d(?=(\d{3})+\.)/g, '$&,')
+    formatDate (plain) {
+      let date = new Date(plain)
+      let d = date.getDate()
+      let m = date.getMonth()
+      let y = date.getFullYear()
+
+      return `${m}/${d}/${y}`
     },
 
     sectionTo (section) {
