@@ -2,7 +2,7 @@ const Order = require('../_models/Order');
 
 module.exports = {
   async index(req, res) {
-    await Order.find({}).then(result => {
+    await Order.find({}).sort({createdAt: 'desc'}).then(result => {
       (result != null) ? res.json(result) : res.send('No Types found.');
     }).catch(err => {
       res.status(500).send({
@@ -30,7 +30,7 @@ module.exports = {
   },
 
   async findById(req, res) {
-    await Order.find(req.params.id).then(result => {
+    await Order.find(req.params.id).sort({createdAt: 'desc'}).then(result => {
       (result != null) ? res.json(result) : res.send('Order not found.');
     }).catch(err => {
       res.status(500).send({
@@ -40,7 +40,7 @@ module.exports = {
   },
 
   async findByStatus(req, res) {
-    await Order.find({status: req.params.status}).then(result => {
+    await Order.find({status: req.params.status}).sort({createdAt: 'desc'}).then(result => {
       (result != null) ? res.json(result) : res.send('No Orders found')
     }).catch(err => {
       res.status(500).send({
