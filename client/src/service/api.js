@@ -55,6 +55,12 @@ const order = {
   },
   getOrderByStatus (status) {
     return uri.get(`/orders/${status}`)
+  },
+  setComplete (order) {
+    return uri.post(`/order/update`, {
+      id: order.id,
+      status: order.status
+    })
   }
 }
 
