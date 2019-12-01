@@ -48,4 +48,18 @@ module.exports = {
       })
     })
   },
+
+  async updateStatus(req, res) {
+    await Order.findById(req.body.id).then(order => {
+      return Object.assign(order, {status: req.body.status});
+    }).then(order => {
+      return order.save()
+    }).then(result => {
+      res.send(result)
+    }).catch(err => {
+      res.status(500).send({
+        error: `errcode(0): ${err.message}`
+      })
+    })
+  }
 };
