@@ -2,25 +2,28 @@ const Order = require('./_controllers/OrderController');
 const Product = require('./_controllers/ProductController');
 const Type = require('./_controllers/TypeController');
 
+const prefix = '/v0';
+
 module.exports = (App) => {
   // Order End-point
-  App.route('/v0/orders')
+  App.route(`${prefix}/v0/orders`)
       .get(Order.index)
       .post(Order.store);
-  App.get('/v0/order/:id', Order.findById);
-  App.get('/v0/orders/:status', Order.findByStatus);
+  App.post(`${prefix}/order/update`, Order.updateStatus);
+  App.get(`${prefix}/order/:id`, Order.findById);
+  App.get(`${prefix}/orders/:status`, Order.findByStatus);
 
   // Product End-point
-  App.route('/v0/products')
+  App.route(`${prefix}/products`)
       .get(Product.index)
       .post(Product.store);
-  App.get('/v0/product/:id', Product.findById);
-  App.post('/v0/product/delete', Product.destroy);
+  App.get(`${prefix}/product/:id`, Product.findById);
+  App.post(`${prefix}/product/delete`, Product.destroy);
 
   // Type End-point
-  App.route('/v0/types')
+  App.route(`${prefix}/types`)
       .get(Type.index)
       .post(Type.store);
-  App.get('/v0/type/:id', Type.findById);
-  App.post('/v0/type/delete', Type.destroy);
+  App.get(`${prefix}/type/:id`, Type.findById);
+  App.post(`${prefix}/type/delete`, Type.destroy);
 };
