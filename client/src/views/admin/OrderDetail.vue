@@ -6,9 +6,10 @@
       </div>
       <div class="column">
         <div class="control">
-          <b-taglist attached style="float: right">
-            <b-tag type="is-dark">{{ formatDate(order.createdAt) }}</b-tag>
+          <b-taglist style="float: right">
             <b-tag><b>#</b>{{ order._id }}</b-tag>
+            <b-tag type="is-danger" v-if="!order.status">{{ formatDate(order.createdAt) }}</b-tag>
+            <b-tag type="is-dark" v-if="order.status">{{ formatDate(order.updatedAt) }}</b-tag>
             <b-tag type="is-success" v-if="order.status">
               <font-awesome-icon :icon="['fa', 'check']"/>
             </b-tag>
@@ -64,18 +65,18 @@
             <table class="table is-bordered">
               <thead>
               <tr>
-                <th width="260">Product Service</th>
-                <th width="260">Shoe Type</th>
-                <th width="260">Note</th>
-                <th width="80" class="has-text-centered">Qty.</th>
-                <th>Subtotal (Rp.)</th>
+                <th width="200">Product Service</th>
+                <th width="200">Shoe Type</th>
+                <th width="100">Note</th>
+                <th width="50" class="has-text-centered">Qty.</th>
+                <th width="200">Subtotal (IDR)</th>
               </tr>
               </thead>
               <tbody>
               <tr v-for="order in subOrder" :key="order._id">
                 <td>
                   <span class="title is-size-6">{{ order.product.name }}</span>
-                  <span class="tag is-small is-info">Rp. {{ moneyFormat(order.product.price) }}</span>
+                  <span class="tag is-small is-info">{{ moneyFormat(order.product.price) }}</span>
                   <br/>
                   <span class="tag is-small">
                     <b>#</b>{{ order.product._id }}
@@ -83,7 +84,7 @@
                 </td>
                 <td>
                   <span class="title is-size-6">{{ order.type.name }}</span>
-                  <span class="tag is-small is-info">+ Rp. {{ moneyFormat(order.type.extraPrice) }}</span>
+                  <span class="tag is-small is-info">+ {{ moneyFormat(order.type.extraPrice) }}</span>
                   <br/>
                   <span class="tag is-small">
                     <b>#</b>{{ order.type._id }}
@@ -100,15 +101,15 @@
                 </td>
                 <td>
                   <span class="title is-size-6">
-                    Rp. {{ moneyFormat((order.product.price + order.type.extraPrice) * order.amount) }}
+                    {{ moneyFormat((order.product.price + order.type.extraPrice) * order.amount) }}
                   </span>
                 </td>
               </tr>
               <tr>
-                <th colspan="4" class="has-text-right">Total (Rp.) :</th>
+                <th colspan="4" class="has-text-right">Total (IDR) :</th>
                 <td>
                   <span class="title is-size-5">
-                    Rp. {{ moneyFormat(order.total) }}
+                    {{ moneyFormat(order.total) }}
                   </span>
                 </td>
               </tr>
@@ -143,20 +144,32 @@ export default {
     this.setOrder()
   },
   methods: {
-    async setComplete(id) {
-      await api.order.setComplete({id: id, status: true}).then(result => {
-        this.$store.dispatch('sectionTo', {parent: 'Orders', status: 'Complete'})
-        this.$buefy.toast.open({
-          duration: 3000,
-          message: `Order Complete!`,
-          type: 'is-success'
-        })
-      }).catch(err => {
-        this.$buefy.toast.open({
-          duration: 3000,
-          message: err,
-          type: 'is-danger'
-        })
+    setComplete(id) {
+      this.$buefy.dialog.confirm({
+        title: 'Complete Order',
+        message: 'Are you sure you want to <b>Complete</b> this order? This action cannot be undone.',
+        confirmText: 'Yes, complete this Order',
+        type: 'is-warning',
+        hasIcon: true,
+        icon: 'info-circle',
+        iconPack: 'fas',
+        size: 'is-small',
+        onConfirm: async () => {
+          await api.order.setComplete({id: id, status: true}).then(result => {
+            this.sectionTo({parent: 'Orders', status: 'Complete'})
+            this.$buefy.toast.open({
+              duration: 3000,
+              message: `Order Complete!`,
+              type: 'is-success'
+            })
+          }).catch(err => {
+            this.$buefy.toast.open({
+              duration: 3000,
+              message: err,
+              type: 'is-danger'
+            })
+          })
+        }
       })
     },
 

@@ -5,7 +5,7 @@
       <div class="column is-10 box is-fullheight main-content">
         <nav class="breadcrumb is-right" aria-label="breadcrumbs">
           <ul>
-            <li :class="{'is-active': !activeSection.hasOwnProperty('child')}">
+            <li :class="{'is-active': !activeSection.hasOwnProperty('child') && !activeSection.hasOwnProperty('status')}">
               <a @click="$store.dispatch('sectionTo', {parent: activeSection.parent})">
                 <font-awesome-icon :icon="['fa', 'boxes']" v-if="activeSection.parent === 'Products'"/>
                 <font-awesome-icon :icon="['fa', 'list']" v-if="activeSection.parent === 'Types'"/>
@@ -92,7 +92,6 @@ export default {
   padding: 30px;
 }
 .main-content {
-  background-color: #fbfbfb;
   padding: 0;
 }
 nav.breadcrumb {
@@ -100,7 +99,7 @@ nav.breadcrumb {
   padding: 10px 10px 0 20px
 }
 .box {
-  height: 92.5vh !important;
+  min-height: 92.5vh !important;
 }
 .content {
   padding: 5px 20px 10px 20px;

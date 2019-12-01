@@ -5,20 +5,20 @@
       <li>
         <a @click="sectionTo({parent: 'Orders'})"
            :class="{'is-active' : activeSection.parent === 'Orders'}">
-          <font-awesome-icon :icon="['fa', 'info']"/> Orders
+          <font-awesome-icon :icon="['fa', 'info']"/>&nbsp;&nbsp;Orders
         </a>
 
         <ul>
           <li>
             <a @click="sectionTo({parent: 'Orders', status: 'Complete'})"
                :class="{'is-active' : activeSection.status === 'Complete'}">
-              <font-awesome-icon :icon="['fa', 'check']"/> Complete
+              <font-awesome-icon :icon="['fa', 'check']"/>&nbsp;&nbsp;Complete
             </a>
           </li>
           <li>
             <a @click="sectionTo({parent: 'Orders', status: 'In Queue'})"
                :class="{'is-active' : activeSection.status === 'In Queue'}">
-              <font-awesome-icon :icon="['fa', 'sync-alt']"/> In Queue
+              <font-awesome-icon :icon="['fa', 'sync-alt']"/>&nbsp;&nbsp;In Queue
             </a>
           </li>
         </ul>
@@ -27,14 +27,14 @@
       <li>
         <a @click="sectionTo({parent: 'Products'})"
            :class="{'is-active' : activeSection.parent === 'Products'}">
-          <font-awesome-icon :icon="['fa', 'boxes']"/> Products
+          <font-awesome-icon :icon="['fa', 'boxes']"/>&nbsp;&nbsp;Products
         </a>
 
         <ul>
           <li>
             <a @click="sectionTo({parent: 'Products', child: 'New Product'})"
                :class="{'is-active' : activeSection.child === 'New Product'}">
-              <font-awesome-icon :icon="['fa', 'plus-circle']"/> Add New
+              <font-awesome-icon :icon="['fa', 'plus-circle']"/>&nbsp;&nbsp;Add New
             </a>
           </li>
         </ul>
@@ -43,14 +43,14 @@
       <li>
         <a @click="sectionTo({parent: 'Types'})"
            :class="{'is-active' : activeSection.parent === 'Types'}">
-          <font-awesome-icon :icon="['fa', 'list']"/> Types
+          <font-awesome-icon :icon="['fa', 'list']"/>&nbsp;&nbsp;Types
         </a>
 
         <ul>
           <li>
             <a @click="sectionTo({parent: 'Types', child: 'New Type'})"
                :class="{'is-active' : activeSection.child === 'New Type'}">
-              <font-awesome-icon :icon="['fa', 'plus-circle']"/> Add New
+              <font-awesome-icon :icon="['fa', 'plus-circle']"/>&nbsp;&nbsp;Add New
             </a>
           </li>
         </ul>
@@ -67,7 +67,7 @@ export default {
   data () {
     return {
       activeSection: {
-        parent: 'Products'
+        parent: 'Orders'
       }
     }
   },

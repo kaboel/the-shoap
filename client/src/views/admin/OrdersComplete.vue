@@ -6,19 +6,15 @@
     </div>
 
     <div class="loading" v-if="allOrders != null && allOrders.length < 1">
-      No Data
+      Oops! All of your Orders are still in queue :(
     </div>
 
-    <div class="table-container"
-         v-if="allOrders != null && allOrders.length > 0">
+    <div v-if="allOrders != null && allOrders.length > 0">
       <table>
         <thead>
         <tr>
-          <th>Order ID</th>
-          <th>OD</th>
-          <th>Status</th>
+          <th width="300">Order</th>
           <th>Customer Name</th>
-          <th>Email</th>
           <th>Pick Up / Deliver</th>
           <th>Order Summary</th>
           <th/>
@@ -27,30 +23,28 @@
         <tbody>
         <tr v-for="order in allOrders" :key="order._id">
           <td>
-            <span class="tag">
-              <b>#</b>{{order._id}}
-            </span>
-          </td>
-          <td>
-            {{ formatDate(order.createdAt) }}
-          </td>
-          <td>
             <div class="control">
               <b-taglist attached>
-                <b-tag type="is-success">
+                <b-tag type="is-danger">
+                  {{ formatDate(order.createdAt) }}
+                </b-tag>
+                <b-tag type="is-success" v-if="order.status">
                   <font-awesome-icon :icon="['fa', 'check']"/>
+                </b-tag>
+                <b-tag type="is-warning" v-if="!order.status">
+                  <font-awesome-icon :icon="['fa', 'sync-alt']"/>
                 </b-tag>
                 <b-tag type="is-dark">
                   {{ formatDate(order.updatedAt) }}
                 </b-tag>
               </b-taglist>
             </div>
+            <span class="tag">
+              <b>#</b>{{order._id}}
+            </span>
           </td>
           <td>
             {{ order.name }}
-          </td>
-          <td>
-            {{ order.email }}
           </td>
           <td>
             {{ order.address }}
@@ -61,7 +55,7 @@
             </button>
           </td>
           <td>
-            <button class="button is-success is-small" disabled>
+            <button class="button is-success is-small" @click="setComplete(order._id)" :disabled="order.status">
               Complete Order&nbsp;&nbsp;<font-awesome-icon :icon="['fa', 'check']"/>
             </button>
           </td>

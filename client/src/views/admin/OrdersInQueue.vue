@@ -9,16 +9,12 @@
       All Orders are Complete! :)
     </div>
 
-    <div class="table-container"
-         v-if="allOrders != null && allOrders.length > 0">
+    <div v-if="allOrders != null && allOrders.length > 0">
       <table>
         <thead>
         <tr>
-          <th>Order ID</th>
-          <th>OD</th>
-          <th>Status</th>
+          <th width="300">Order</th>
           <th>Customer Name</th>
-          <th>Email</th>
           <th>Pick Up / Deliver</th>
           <th>Order Summary</th>
           <th/>
@@ -27,30 +23,25 @@
         <tbody>
         <tr v-for="order in allOrders" :key="order._id">
           <td>
+            <div class="control">
+              <b-taglist attached>
+                <b-tag type="is-danger">
+                  {{ formatDate(order.createdAt) }}
+                </b-tag>
+                <b-tag type="is-success" v-if="order.status">
+                  <font-awesome-icon :icon="['fa', 'check']"/>
+                </b-tag>
+                <b-tag type="is-warning" v-if="!order.status">
+                  <font-awesome-icon :icon="['fa', 'sync-alt']"/>
+                </b-tag>
+              </b-taglist>
+            </div>
             <span class="tag">
               <b>#</b>{{order._id}}
             </span>
           </td>
           <td>
-            {{ formatDate(order.createdAt) }}
-          </td>
-          <td>
-            <div class="control">
-              <b-taglist attached>
-                <b-tag type="is-warning">
-                  <font-awesome-icon :icon="['fa', 'sync-alt']"/>
-                </b-tag>
-                <b-tag type="is-dark">
-                  {{ formatDate(order.updatedAt) }}
-                </b-tag>
-              </b-taglist>
-            </div>
-          </td>
-          <td>
             {{ order.name }}
-          </td>
-          <td>
-            {{ order.email }}
           </td>
           <td>
             {{ order.address }}
@@ -61,7 +52,7 @@
             </button>
           </td>
           <td>
-            <button class="button is-success is-small" @click="setComplete(order._id)">
+            <button class="button is-success is-small" @click="setComplete(order._id)" :disabled="order.status">
               Complete Order&nbsp;&nbsp;<font-awesome-icon :icon="['fa', 'check']"/>
             </button>
           </td>
@@ -116,20 +107,32 @@ export default {
       })
     },
 
-    async setComplete(id) {
-      await api.order.setComplete({id: id, status: true}).then(result => {
-        this.$store.dispatch('sectionTo', {parent: 'Orders', status: 'Complete'})
-        this.$buefy.toast.open({
-          duration: 3000,
-          message: `Order Complete!`,
-          type: 'is-success'
-        })
-      }).catch(err => {
-        this.$buefy.toast.open({
-          duration: 3000,
-          message: err,
-          type: 'is-danger'
-        })
+    setComplete(id) {
+      this.$buefy.dialog.confirm({
+        title: 'Complete Order',
+        message: 'Are you sure you want to <b>Complete</b> this order? This action cannot be undone.',
+        confirmText: 'Yes, complete this Order',
+        type: 'is-warning',
+        hasIcon: true,
+        icon: 'info-circle',
+        iconPack: 'fas',
+        size: 'is-small',
+        onConfirm: async () => {
+          await api.order.setComplete({id: id, status: true}).then(result => {
+            this.sectionTo({parent: 'Orders', status: 'Complete'})
+            this.$buefy.toast.open({
+              duration: 3000,
+              message: `Order Complete!`,
+              type: 'is-success'
+            })
+          }).catch(err => {
+            this.$buefy.toast.open({
+              duration: 3000,
+              message: err,
+              type: 'is-danger'
+            })
+          })
+        }
       })
     },
 

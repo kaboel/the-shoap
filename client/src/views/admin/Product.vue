@@ -120,7 +120,7 @@ td {
   width: 100%;
   min-height: 75vh;
   line-height: 75vh;
-  font-size: 1rem;
+  font-size: 1.4rem;
   font-weight: bolder;
   color: #aaa;
   text-align: center;
