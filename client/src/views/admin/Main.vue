@@ -24,6 +24,11 @@
                 </span>
               </a>
             </li>
+            <li v-if="activeSection.hasOwnProperty('id')" class="is-active">
+              <a>
+                Invoice
+              </a>
+            </li>
           </ul>
         </nav>
         <div class="navbar-divider"/>
