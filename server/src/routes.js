@@ -13,16 +13,14 @@ module.exports = (App) => {
   App.get(`${prefix}/orders/:status`, Order.findByStatus);
 
   // Product End-point
-  App.route(`${prefix}/products`)
-      .get(Product.index)
-      .post(Product.store);
+  App.get(`${prefix}/products`, Product.index);
+  App.post(`${prefix}/products`, Product.store);
   App.get(`${prefix}/product/:id`, Product.findById);
   App.post(`${prefix}/product/delete`, Product.destroy);
 
   // Type End-point
-  App.route(`${prefix}/types`)
-      .get(Type.index)
-      .post(Type.store);
+  App.get(`${prefix}/types`, Type.index);
+  App.post(`${prefix}/types`, Type.store);
   App.get(`${prefix}/type/:id`, Type.findById);
   App.post(`${prefix}/type/delete`, Type.destroy);
 };
