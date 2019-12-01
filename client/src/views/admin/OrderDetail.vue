@@ -64,8 +64,9 @@
             <table class="table is-bordered">
               <thead>
               <tr>
-                <th width="380">Product Service</th>
-                <th width="380">Shoe Type</th>
+                <th width="260">Product Service</th>
+                <th width="260">Shoe Type</th>
+                <th width="260">Note</th>
                 <th width="80" class="has-text-centered">Qty.</th>
                 <th>Subtotal (Rp.)</th>
               </tr>
@@ -88,6 +89,9 @@
                     <b>#</b>{{ order.type._id }}
                   </span>
                 </td>
+                <td>
+                  {{ order.note }}
+                </td>
                 <td class="has-text-centered">
                   <span class="title is-size-6">
                     {{ order.amount }}
@@ -101,7 +105,7 @@
                 </td>
               </tr>
               <tr>
-                <th colspan="3" class="has-text-right">Total (Rp.) :</th>
+                <th colspan="4" class="has-text-right">Total (Rp.) :</th>
                 <td>
                   <span class="title is-size-5">
                     Rp. {{ moneyFormat(order.total) }}
