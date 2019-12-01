@@ -8,7 +8,7 @@
         <div class="control">
           <b-taglist attached style="float: right">
             <b-tag type="is-dark">{{ formatDate(order.createdAt) }}</b-tag>
-            <b-tag><b>#</b>  {{ order._id }}</b-tag>
+            <b-tag><b>#</b>{{ order._id }}</b-tag>
             <b-tag type="is-success" v-if="order.status">
               <font-awesome-icon :icon="['fa', 'check']"/>
             </b-tag>
@@ -188,11 +188,15 @@ export default {
     formatDate (plain) {
       let date = new Date(plain)
       let d = date.getDate()
-      let m = date.getMonth()
+      let M = date.getMonth()
       let y = date.getFullYear()
 
-      return `${m}/${d}/${y}`
-    }
+      let H = date.getHours()
+      let m = date.getMinutes()
+      let a = date.get
+
+      return `${M}/${d}/${y} | ${H}:${m}`
+    },
   }
 }
 </script>

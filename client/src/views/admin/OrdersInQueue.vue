@@ -125,10 +125,14 @@
       formatDate (plain) {
         let date = new Date(plain)
         let d = date.getDate()
-        let m = date.getMonth()
+        let M = date.getMonth()
         let y = date.getFullYear()
 
-        return `${m}/${d}/${y}`
+        let H = date.getHours()
+        let m = date.getMinutes()
+        let a = date.get
+
+        return `${M}/${d}/${y} | ${H}:${m}`
       },
 
       sectionTo (section) {
