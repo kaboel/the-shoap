@@ -7,7 +7,7 @@
 
     <div class="table-container"
          v-if="allTypes != null">
-      <table>
+      <table class="table is-narrow">
         <thead>
         <tr>
           <th>Name</th>
@@ -19,7 +19,7 @@
         <tr v-for="type in allTypes" :key="type._id">
           <td>
             <span class="title is-size-6">{{type.name}}</span> <br/>
-            <span class="subtitle is-size-xs fade">{{type._id}}</span>
+            <span class="tag is-size-xs fade">{{type._id}}</span>
           </td>
           <td>Rp. {{moneyFormat(type.extraPrice)}}</td>
           <td>

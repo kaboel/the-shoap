@@ -7,7 +7,7 @@
 
     <div class="table-container"
          v-if="allProducts != null">
-      <table>
+      <table class="table is-narrow">
         <thead>
         <tr>
           <th>Name</th>
@@ -21,7 +21,7 @@
         <tr v-for="product in allProducts" :key="product._id">
           <td>
             <span class="title is-size-6">{{product.name}}</span> <br/>
-            <span class="subtitle is-size-xs fade">{{product._id}}</span>
+            <span class="tag is-size-xs fade">{{product._id}}</span>
           </td>
           <td>{{product.description}}</td>
           <td>{{product.duration}} day(s)</td>
