@@ -52,7 +52,7 @@
             <b-field label="Address" label-position="inside">
               <b-input type="textarea" v-model="order.address" disabled/>
             </b-field>
-            <button class="button is-success" style="width: 100%" :disabled="order.status">
+            <button class="button is-success" style="width: 100%" @click="setComplete(order._id)" :disabled="order.status">
               Complete This Order
             </button>
           </div>
@@ -123,6 +123,7 @@
 
 <script>
 import {mapState} from 'vuex'
+import api from "../../service/api";
 
 export default {
   name: 'OrderDetail',
@@ -142,6 +143,23 @@ export default {
     this.setOrder()
   },
   methods: {
+    async setComplete(id) {
+      await api.order.setComplete({id: id, status: true}).then(result => {
+        this.$store.dispatch('sectionTo', {parent: 'Orders', status: 'Complete'})
+        this.$buefy.toast.open({
+          duration: 3000,
+          message: `Order Complete!`,
+          type: 'is-success'
+        })
+      }).catch(err => {
+        this.$buefy.toast.open({
+          duration: 3000,
+          message: err,
+          type: 'is-danger'
+        })
+      })
+    },
+
     setOrder () {
       let orders = this.orders
       let id = this.sectionActive.id

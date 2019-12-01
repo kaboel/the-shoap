@@ -64,7 +64,7 @@
             </button>
           </td>
           <td>
-            <button class="button is-success is-small" :disabled="order.status">
+            <button class="button is-success is-small" @click="setComplete(order._id)" :disabled="order.status">
               Complete Order&nbsp;&nbsp;<font-awesome-icon :icon="['fa', 'check']"/>
             </button>
           </td>
@@ -99,7 +99,12 @@ export default {
       await api.order.getAllOrders().then(res => {
         this.$store.dispatch('fillOrders', res.data)
       }).catch(err => {
-        console.log(err)
+        this.$buefy.toast.open({
+          duration: 5000,
+          message: err,
+          position: 'is-top',
+          type: 'is-danger'
+        })
       })
     },
 
@@ -107,7 +112,12 @@ export default {
       await api.product.getAllProduct().then(res => {
         this.$store.dispatch('fillProducts', res.data)
       }).catch(err => {
-        console.log(err.message)
+        this.$buefy.toast.open({
+          duration: 5000,
+          message: err,
+          position: 'is-top',
+          type: 'is-danger'
+        })
       })
     },
 
@@ -115,7 +125,29 @@ export default {
       await api.type.getAllTypes().then(res => {
         this.$store.dispatch('fillTypes', res.data)
       }).catch(err => {
-        console.log(err.message)
+        this.$buefy.toast.open({
+          duration: 5000,
+          message: err,
+          position: 'is-top',
+          type: 'is-danger'
+        })
+      })
+    },
+
+    async setComplete(id) {
+      await api.order.setComplete({id: id, status: true}).then(result => {
+        this.$store.dispatch('sectionTo', {parent: 'Orders', status: 'Complete'})
+        this.$buefy.toast.open({
+          duration: 3000,
+          message: `Order Complete!`,
+          type: 'is-success'
+        })
+      }).catch(err => {
+        this.$buefy.toast.open({
+          duration: 3000,
+          message: err,
+          type: 'is-danger'
+        })
       })
     },
 
