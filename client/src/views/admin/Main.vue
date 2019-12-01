@@ -5,8 +5,7 @@
       <div class="column is-10 box is-fullheight main-content">
         <nav class="breadcrumb is-right" aria-label="breadcrumbs">
           <ul>
-            <li v-if="activeSection.parent !== ''"
-                :class="{'is-active': !activeSection.hasOwnProperty('child')}">
+            <li :class="{'is-active': !activeSection.hasOwnProperty('child')}">
               <a @click="$store.dispatch('sectionTo', {parent: activeSection.parent})">
                 <font-awesome-icon :icon="['fa', 'boxes']" v-if="activeSection.parent === 'Products'"/>
                 <font-awesome-icon :icon="['fa', 'list']" v-if="activeSection.parent === 'Types'"/>
@@ -15,8 +14,15 @@
                 {{ activeSection.parent }}
               </a>
             </li>
-            <li v-if="activeSection.child !== ''" class="is-active">
-              <a>{{ activeSection.child }}</a>
+            <li v-if="activeSection.hasOwnProperty('child')" class="is-active">
+              <a>
+                <span v-if="!activeSection.hasOwnProperty('id')">
+                  {{ activeSection.child }}
+                </span>
+                <span class="tag is-small" v-if="activeSection.hasOwnProperty('id')">
+                  <b>#</b>{{ activeSection.id }}
+                </span>
+              </a>
             </li>
           </ul>
         </nav>
@@ -29,6 +35,7 @@
           <AddType v-if="activeSection.parent === 'Types' && activeSection.child === 'New Type'"/>
 
           <Order v-if="activeSection.parent === 'Orders' && !activeSection.hasOwnProperty('child')"/>
+          <OrderDetail v-if="activeSection.parent === 'Orders' && activeSection.hasOwnProperty('id')"/>
         </div>
       </div>
     </div>
@@ -42,15 +49,16 @@ import AddProduct from './AddProduct'
 import Type from './Type'
 import AddType from './AddType'
 import Order from './Order'
+import OrderDetail from './OrderDetail'
 
 export default {
   name: 'AdminMain',
-  components: {Order, AddType, Type, AddProduct, Product, TsSidebar},
+  components: {OrderDetail, Order, AddType, Type, AddProduct, Product, TsSidebar},
   data () {
     return {
       activeSection: {
         parent: 'Products'
-      }
+      },
     }
   },
   computed: mapState(['sectionActive']),
