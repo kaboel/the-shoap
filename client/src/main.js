@@ -14,15 +14,17 @@ import {
   faInfo, faInfoCircle, faBoxes, faList,
   faPlusCircle, faTrash, faExclamationCircle,
   faMinus, faPlus, faCheck, faSyncAlt,
-  faArrowRight
+  faArrowRight, faMailBulk
 } from '@fortawesome/free-solid-svg-icons'
+
+import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 
 library.add(
   faCopyright, faTimes, faHome, faLink,
   faInfo, faInfoCircle, faBoxes, faList,
   faPlusCircle, faTrash, faExclamationCircle,
   faPlus, faMinus, faCheck, faSyncAlt,
-  faArrowRight
+  faArrowRight, faWhatsapp, faMailBulk
 )
 
 Vue.config.productionTip = false
