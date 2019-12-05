@@ -5,8 +5,41 @@
 </template>
 
 <script>
+import api from './service/api'
+
 export default {
-  name: 'App'
+  name: 'App',
+  mounted () {
+    this.loadProducts()
+    this.loadTypes()
+  },
+  methods: {
+    async loadProducts () {
+      await api.product.getAllProduct().then(res => {
+        this.$store.dispatch('fillProducts', res.data)
+      }).catch(err => {
+        this.$buefy.toast.open({
+          duration: 5000,
+          message: err,
+          position: 'is-top',
+          type: 'is-danger'
+        })
+      })
+    },
+
+    async loadTypes () {
+      await api.type.getAllTypes().then(res => {
+        this.$store.dispatch('fillTypes', res.data)
+      }).catch(err => {
+        this.$buefy.toast.open({
+          duration: 5000,
+          message: err,
+          position: 'is-top',
+          type: 'is-danger'
+        })
+      })
+    },
+  }
 }
 </script>
 

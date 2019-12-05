@@ -114,7 +114,6 @@
 
 <script>
   import {mapState} from 'vuex'
-  import api from '../../service/api'
 
   export default {
   name: 'Products',
@@ -139,25 +138,10 @@
   },
   mounted() {
     let cart = this.$store.getters.cart
+    this.allProducts = this.$store.getters.products
     this.currentCart = cart.content.map(el => el);
   },
-  created() {
-    this.loadProducts()
-  },
   methods: {
-    async loadProducts () {
-      await api.product.getAllProduct().then(res => {
-        this.$store.dispatch('fillProducts', res.data)
-      }).catch(err => {
-        this.$buefy.toast.open({
-          duration: 5000,
-          message: err,
-          position: 'is-top',
-          type: 'is-danger'
-        })
-      })
-    },
-
     addToCart (productId) {
       let cart = this.currentCart
 
@@ -196,7 +180,12 @@
       let cart = this.currentCart
       cart.forEach((el, index) => {
         if (el.productId === productId) {
-          cart[index].amount--
+          if (el.amount === 1) {
+            cart[index].productId = ''
+            cart[index].amount--
+          } else {
+            cart[index].amount--
+          }
         }
       })
       this.$store.dispatch('addToCart', cart)
@@ -222,7 +211,7 @@
         currency: 'IDR',
         minimumFractionDigits: 2,
       }).format(number);
-    },
+    }
   }
 }
 </script>
