@@ -27,7 +27,9 @@ const store = new Vuex.Store({
   },
   getters: {
     checkout: state => state.checkout,
-    cart: state => state.cart
+    cart: state => state.cart,
+    products: state => state.products,
+    types: state => state.types
   },
   mutations: {
     contentOff (state) {
