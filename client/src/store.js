@@ -9,8 +9,10 @@ const store = new Vuex.Store({
     products: null,
     orders: null,
     types: null,
-    cartContent: {productId: null, amount: 0},
-    cart: [],
+    cart: {
+      content: [],
+      total: 0
+    },
     checkout: {
       step: 0,
       profile: null,
@@ -24,7 +26,8 @@ const store = new Vuex.Store({
     }
   },
   getters: {
-    checkout: state => state.checkout
+    checkout: state => state.checkout,
+    cart: state => state.cart
   },
   mutations: {
     contentOff (state) {
@@ -50,7 +53,12 @@ const store = new Vuex.Store({
       state.types = types
     },
     cart: (state, cart) => {
-      state.cart = cart
+      state.cart.content = cart
+      let total = 0
+      cart.forEach(el => {
+        total += el.amount
+      })
+      state.cart.total = total
     },
     checkout: (state, checkout) => {
       if (checkout.hasOwnProperty('step')) {
