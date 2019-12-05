@@ -41,4 +41,13 @@ code {
   font-weight: 400;
   padding: .25em .5em .25em;
 }
+.loading {
+  width: 100%;
+  min-height: 75vh;
+  line-height: 75vh;
+  font-size: 1.4rem;
+  font-weight: bolder;
+  color: #aaa;
+  text-align: center;
+}
 </style>
