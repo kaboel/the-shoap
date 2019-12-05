@@ -15,17 +15,24 @@
             <div class="card-header">
               <div class="card-header-title">
                 {{ product.name }} &nbsp;
-<!--                <span class="tag count is-warning"-->
-<!--                v-if="getAmount(product._id) !== null">-->
-<!--                  x{{ getAmount(product._id) }}-->
-<!--                </span>-->
+                <span class="tag is-dark">{{ moneyFormat(product.price) }}</span> &nbsp;
+                <span class="tag count is-warning"
+                      v-if="getAmount(product._id) > 0">
+                  x{{ getAmount(product._id) }}
+                </span>
               </div>
             </div>
-            <div class="card-content">
-              {{ product.description }}
+            <div class="card-content has-text-centered">
+              <p>
+                <span class="subtitle is-size-5">{{ product.description }}</span>
+              </p>
             </div>
             <div class="card-footer">
               <div class="card-footer-item">
+                <button v-if="getAmount(product._id) > 0" class="button is-danger" @click="removeFromCart(product._id)">
+                  <font-awesome-icon :icon="['fa', 'minus']"/>
+                </button>
+                &nbsp;&nbsp;&nbsp;
                 <button class="button is-primary" @click="addToCart(product._id)">
                   <font-awesome-icon :icon="['fa', 'cart-plus']"/>
                   &nbsp;&nbsp;Add To Cart
@@ -35,23 +42,63 @@
           </div>
         </div>
       </div>
-      <div class="columns is-centered">
-        <div class="column is-one-quarter" v-for="product in allProducts.slice(4, products.length)" :key="products._id">
+      <div v-if="allProducts.length > 4" class="columns is-centered">
+        <div class="column is-one-quarter" v-for="product in allProducts.slice(4, 8)" :key="products._id">
           <div class="card">
             <div class="card-header">
-              <p class="card-header-title">
+              <div class="card-header-title">
                 {{ product.name }} &nbsp;
+                <span class="tag is-dark">{{ moneyFormat(product.price) }}</span> &nbsp;
                 <span class="tag count is-warning"
-                v-if="getAmount(product._id)">
+                      v-if="getAmount(product._id) > 0">
                   x{{ getAmount(product._id) }}
                 </span>
-              </p>
+              </div>
             </div>
-            <div class="card-content">
-              {{ product.description }}
+            <div class="card-content has-text-centered">
+              <p>
+                <span class="subtitle is-size-5">{{ product.description }}</span>
+              </p>
             </div>
             <div class="card-footer">
               <div class="card-footer-item">
+                <button v-if="getAmount(product._id) > 0" class="button is-danger" @click="removeFromCart(product._id)">
+                  <font-awesome-icon :icon="['fa', 'minus']"/>
+                </button>
+                &nbsp;&nbsp;&nbsp;
+                <button class="button is-primary" @click="addToCart(product._id)">
+                  <font-awesome-icon :icon="['fa', 'cart-plus']"/>
+                  &nbsp;&nbsp;Add To Cart
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div v-if="allProducts.length > 8" class="columns is-centered">
+        <div class="column is-one-quarter" v-for="product in allProducts.slice(8, 12)" :key="products._id">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-header-title">
+                {{ product.name }} &nbsp;
+                <span class="tag is-dark">{{ moneyFormat(product.price) }}</span> &nbsp;
+                <span class="tag count is-warning"
+                      v-if="getAmount(product._id) > 0">
+                  x{{ getAmount(product._id) }}
+                </span>
+              </div>
+            </div>
+            <div class="card-content has-text-centered">
+              <p>
+                <span class="subtitle is-size-5">{{ product.description }}</span>
+              </p>
+            </div>
+            <div class="card-footer">
+              <div class="card-footer-item">
+                <button v-if="getAmount(product._id) > 0" class="button is-danger" @click="removeFromCart(product._id)">
+                  <font-awesome-icon :icon="['fa', 'minus']"/>
+                </button>
+                &nbsp;&nbsp;&nbsp;
                 <button class="button is-primary" @click="addToCart(product._id)">
                   <font-awesome-icon :icon="['fa', 'cart-plus']"/>
                   &nbsp;&nbsp;Add To Cart
@@ -79,12 +126,20 @@
   },
   computed: mapState(['products', 'cart']),
   watch: {
-    products (newVal, oldVal) {
-      this.allProducts = newVal
+    'products': {
+      handler (val) {
+        this.allProducts = val
+      }, deep: true
     },
-    cart (newVal, oldVal) {
-      this.currentCart = newVal
+    'cart.content': {
+      handler (val) {
+        this.currentCart = val
+      }, deep: true
     }
+  },
+  mounted() {
+    let cart = this.$store.getters.cart
+    this.currentCart = cart.content.map(el => el);
   },
   created() {
     this.loadProducts()
@@ -128,16 +183,45 @@
           })
         }
       }
+      this.$store.dispatch('addToCart', cart)
+      this.$buefy.toast.open({
+        duration: 1000,
+        message: 'Added to cart',
+        position: 'is-bottom',
+        type: 'is-info'
+      })
+    },
 
-      this.$store.dispatch('addToCart', cart);
+    removeFromCart (productId) {
+      let cart = this.currentCart
+      cart.forEach((el, index) => {
+        if (el.productId === productId) {
+          cart[index].amount--
+        }
+      })
+      this.$store.dispatch('addToCart', cart)
+      this.$buefy.toast.open({
+        duration: 1000,
+        message: 'Removed from cart',
+        position: 'is-bottom',
+        type: 'is-danger'
+      })
     },
 
     getAmount(id) {
-      const data = this.currentCart.find(el => el.productId === id)
+      let data = this.currentCart.find(el => el.productId === id)
       if (data) {
-        const parsed = JSON.parse(JSON.stringify(data))
-        return parsed.amount
+        const objData = JSON.parse(JSON.stringify(data))
+        return objData.amount
       }
+    },
+
+    moneyFormat (number) {
+      return new Intl.NumberFormat('en-IDR', {
+        style: 'currency',
+        currency: 'IDR',
+        minimumFractionDigits: 2,
+      }).format(number);
     },
   }
 }
@@ -148,7 +232,11 @@
   color: #555
 }
 .content {
-  padding: 0 40px 0 40px;
+  padding: 0 40px 100px 40px;
+  overflow: auto;
+  height: 100%;
+  width: 100%;
+  position: absolute;
 }
 .card-content {
   min-height: 120px;
