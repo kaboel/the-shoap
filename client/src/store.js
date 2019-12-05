@@ -9,12 +9,22 @@ const store = new Vuex.Store({
     products: null,
     orders: null,
     types: null,
+    cartContent: {productId: null, amount: 0},
     cart: [],
+    checkout: {
+      step: 0,
+      profile: null,
+      orders: null,
+      payment: null
+    },
     contentOn: false,
     pageActive: null,
     sectionActive: {
       parent: 'Orders'
     }
+  },
+  getters: {
+    checkout: state => state.checkout
   },
   mutations: {
     contentOff (state) {
@@ -38,6 +48,23 @@ const store = new Vuex.Store({
     },
     types (state, types) {
       state.types = types
+    },
+    cart: (state, cart) => {
+      state.cart = cart
+    },
+    checkout: (state, checkout) => {
+      if (checkout.hasOwnProperty('step')) {
+        state.checkout.step = checkout.step
+      }
+      if (checkout.hasOwnProperty('profile')) {
+        state.checkout.profile = checkout.profile
+      }
+      if (checkout.hasOwnProperty('orders')) {
+        state.checkout.orders = checkout.orders
+      }
+      if (checkout.hasOwnProperty('payment')) {
+        state.checkout.payment = checkout.payment
+      }
     }
   },
   actions: {
@@ -61,6 +88,12 @@ const store = new Vuex.Store({
     },
     fillTypes ({commit}, types) {
       commit('types', types)
+    },
+    addToCart ({commit}, cart) {
+      commit('cart', cart)
+    },
+    setCheckout ({commit}, checkout) {
+      commit('checkout', checkout)
     }
   }
 })
