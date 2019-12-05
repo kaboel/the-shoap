@@ -32,7 +32,7 @@
           </a>
         </div>
         <div class="navbar-item has-text-centered">
-          <a @click="routeTo('Cart')" class="button is-rounded is-outlined">
+          <a @click="routeTo('Cart')" class="button is-rounded is-outlined has-badge-rounded has-badge-dark" v-bind:data-badge="total">
             <font-awesome-icon :icon="['fa', 'shopping-cart']" class="mr-sm fa-lg"/>
           </a>
         </div>
@@ -42,12 +42,27 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
+
 export default {
   name: 'TsNavbar',
   data () {
     return {
-      navToggle: false
+      navToggle: false,
+      total: 0
     }
+  },
+  computed: mapState(['cart']),
+  watch: {
+    'cart.total': {
+      handler (val) {
+        this.total = val
+      }, deep: true
+    }
+  },
+  mounted() {
+    let cart = this.$store.getters.cart
+    this.total = cart.total
   },
   methods: {
     contentOff () {
@@ -72,12 +87,10 @@ export default {
 }
 .button {
   border: 0 !important;
-  opacity: 0.6;
 }
 .button:hover,
 .button:focus
 {
-  opacity: 1;
   background-color: #00a2ea !important;
   color: #ddd !important
 }
