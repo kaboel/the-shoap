@@ -17,25 +17,24 @@
 
     <div id="navbarMenu" class="navbar-menu" :class="{'is-active' : navToggle}">
       <div class="navbar-end">
-        <a href="#" @click="routeTo('About')" class="navbar-link is-arrowless">
+        <a @click="routeTo('About')" class="navbar-link is-arrowless">
           About
         </a>
-        <a href="#" @click="routeTo('Products')" class="navbar-link is-arrowless">
+        <a @click="routeTo('Products')" class="navbar-link is-arrowless">
           Products
         </a>
-        <a href="#" @click="routeTo('Contact')" class="navbar-link is-arrowless">
+        <a @click="routeTo('Contact')" class="navbar-link is-arrowless">
           Contact
         </a>
         <div class="navbar-item has-text-centered">
-          <router-link class="button is-rounded is-outlined" to="/contact">
-            <font-awesome-icon :icon="['fas', 'envelope']" class="mr-sm fa-lg"/>
+          <a @click="routeTo('Status')" class="button is-rounded is-outlined">
             <b>Check Status</b>
-          </router-link>
+          </a>
         </div>
         <div class="navbar-item has-text-centered">
-          <router-link class="button is-rounded" to="/contact">
-            <font-awesome-icon :icon="['fas', 'envelope']" class="mr-sm fa-lg"/>
-          </router-link>
+          <a @click="routeTo('Cart')" class="button is-rounded is-outlined">
+            <font-awesome-icon :icon="['fa', 'shopping-cart']" class="mr-sm fa-lg"/>
+          </a>
         </div>
       </div>
     </div>
