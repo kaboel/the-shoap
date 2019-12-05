@@ -255,5 +255,4 @@ table, tr, th, td {
 th {
   background-color: #ddd;
 }
-
 </style>
