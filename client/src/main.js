@@ -6,6 +6,7 @@ import router from './router'
 import store from './store'
 import Buefy from 'buefy'
 import 'buefy/dist/buefy.min.css'
+import 'bulma-badge/dist/css/bulma-badge.min.css'
 import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
 import {library} from '@fortawesome/fontawesome-svg-core'
 
