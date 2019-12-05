@@ -121,9 +121,7 @@ export default {
         email: '',
         phone: '',
         address: ''
-      },
-      disableNext: false,
-      disablePrev: false
+      }
     }
   },
   computed: mapState(['cart', 'products', 'types', 'checkout']),
