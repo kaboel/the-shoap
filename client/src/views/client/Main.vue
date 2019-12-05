@@ -31,6 +31,8 @@
         <About v-if="pageActive === 'About'"/>
         <Products v-if="pageActive === 'Products'"/>
         <Contact v-if="pageActive === 'Contact'"/>
+        <Status v-if="pageActive === 'Status'"/>
+        <Cart v-if="pageActive === 'Cart'"/>
       </div>
     </div>
 
@@ -48,17 +50,18 @@ import About from './About'
 import Products from './Products'
 import Contact from './Contact'
 import TsNavbar from '../../components/client/TsNavbar'
+import Cart from './Cart'
+import Status from './Status'
 
 export default {
   name: 'ClientMain',
-  components: {TsNavbar, Contact, Products, About},
+  components: {Status, Cart, TsNavbar, Contact, Products, About},
   data () {
     return {
-      products: {},
       contentActive: false
     }
   },
-  computed: mapState(['contentOn', 'pageActive']),
+  computed: mapState(['contentOn', 'pageActive', 'orders', 'products', 'types']),
   watch: {
     contentOn (newVal, oldVal) {
       this.contentActive = newVal
@@ -69,12 +72,17 @@ export default {
   },
   methods: {
     async loadProducts () {
-      await api.getAllProduct().then(res => {
-        this.products = res.data
+      await api.product.getAllProduct().then(res => {
+        this.$store.dispatch('fillProducts', res.data)
       }).catch(err => {
-        console.log(err)
+        this.$buefy.toast.open({
+          duration: 5000,
+          message: err,
+          position: 'is-top',
+          type: 'is-danger'
+        })
       })
-    }
+    },
   }
 }
 </script>
