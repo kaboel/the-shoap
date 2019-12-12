@@ -16,7 +16,7 @@ const store = new Vuex.Store({
     checkout: {
       step: 0,
       profile: null,
-      orders: null,
+      order: null,
       payment: null
     },
     contentOn: false,
@@ -69,11 +69,29 @@ const store = new Vuex.Store({
       if (checkout.hasOwnProperty('profile')) {
         state.checkout.profile = checkout.profile
       }
-      if (checkout.hasOwnProperty('orders')) {
-        state.checkout.orders = checkout.orders
+      if (checkout.hasOwnProperty('order')) {
+        state.checkout.order = checkout.order
       }
       if (checkout.hasOwnProperty('payment')) {
         state.checkout.payment = checkout.payment
+      }
+    },
+    flushCart: (state) => {
+      state.cart = {
+        content: [],
+        total: 0
+      }
+    },
+    flushAll: (state) => {
+      state.cart = {
+        content: [],
+          total: 0
+      }
+      state.checkout = {
+        step: 0,
+          profile: null,
+          order: null,
+          payment: null
       }
     }
   },
@@ -104,6 +122,13 @@ const store = new Vuex.Store({
     },
     setCheckout ({commit}, checkout) {
       commit('checkout', checkout)
+    },
+    flushCart({commit}) {
+      commit('flushCart')
+    },
+    flushAll({commit}) {
+      commit('flushAll')
+      commit('routeTo', {contentOff: false, pageActive: ''})
     }
   }
 })
