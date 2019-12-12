@@ -8,9 +8,9 @@ module.exports = (App) => {
   // Order End-point
   App.get(`${prefix}/orders`, Order.index);
   App.post(`${prefix}/orders`, Order.store);
-  App.post(`${prefix}/order/update`, Order.updateStatus);
-  App.get(`${prefix}/order/:id`, Order.findById);
   App.get(`${prefix}/orders/:status`, Order.findByStatus);
+  App.get(`${prefix}/order/:id`, Order.findById);
+  App.post(`${prefix}/order/update`, Order.updateStatus);
 
   // Product End-point
   App.get(`${prefix}/products`, Product.index);

@@ -30,8 +30,8 @@ module.exports = {
   },
 
   async findById(req, res) {
-    await Order.find(req.params.id).sort({createdAt: 'desc'}).then(result => {
-      (result != null) ? res.json(result) : res.send('Order not found.');
+    await Order.findById(req.params.id).sort({createdAt: 'desc'}).then(result => {
+      (result !== null) ? res.json(result) : res.status(200).send('Order not found.');
     }).catch(err => {
       res.status(500).send({
         error: `errcode(0): ${err.message}`
