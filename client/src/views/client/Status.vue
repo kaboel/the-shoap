@@ -44,8 +44,12 @@
                     <div class="control">
                       <b-taglist style="float: right">
                         <b-tag><b>#</b>{{ order._id }}</b-tag>
-                        <b-tag type="is-danger" v-if="!order.status">{{ formatDate(order.createdAt) }}</b-tag>
-                        <b-tag type="is-dark" v-if="order.status">{{ formatDate(order.updatedAt) }}</b-tag>
+                        <b-tooltip label="Date Ordered" type="is-danger">
+                          <b-tag type="is-danger">{{ formatDate(order.createdAt) }}</b-tag>
+                        </b-tooltip>&nbsp;&nbsp;
+                        <b-tooltip label="Date Complete" type="is-dark">
+                          <b-tag type="is-dark" v-if="order.status">{{ formatDate(order.updatedAt) }}</b-tag>
+                        </b-tooltip>
                       </b-taglist>
                     </div>
                   </div>
@@ -288,5 +292,11 @@
   font-weight: bolder;
   color: #aaa;
   text-align: center;
+}
+table, tr, th, td {
+  vertical-align: middle !important;
+}
+th {
+  background-color: #ddd;
 }
 </style>
