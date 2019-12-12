@@ -27,7 +27,7 @@
                                    required/>
                         </b-field>
                         <b-field label="*Your Email" label-position="on-border">
-                          <b-input type="text"
+                          <b-input type="email"
                                    v-model="customer.email"
                                    size="is-medium"
                                    placeholder="e.g. boyke.wink@gmail.com"
@@ -158,10 +158,31 @@
                       <div class="column">
                         <span class="title is-size-4">Checkout Summary</span><br/>
                       </div>
+                      <div class="column is-one-fifth">
+                        <b-field>
+                          <b-tooltip label="Use this code to check your order's current status"
+                                     position="is-bottom"
+                                     type="is-warning"
+                                     multilined
+                                     always>
+                            <b-input v-model="order._id"
+                                     type="search"
+                                     icon="hashtag"
+                                     size="is-small"
+                                     readonly
+                                     expanded/>
+                          </b-tooltip>
+                          <p class="control">
+                            <button class="button is-dark is-small" @click="copyToClipboard(order._id)">
+                              Copy&nbsp;&nbsp;
+                              <font-awesome-icon :icon="['fa', 'copy']"/>
+                            </button>
+                          </p>
+                        </b-field>
+                      </div>
                       <div class="column">
                         <div class="control">
                           <b-taglist style="float: right">
-                            <b-tag><b>#</b>{{ order._id }}</b-tag>
                             <b-tag type="is-danger" v-if="!order.status">{{ formatDate(order.createdAt) }}</b-tag>
                             <b-tag type="is-dark" v-if="order.status">{{ formatDate(order.updatedAt) }}</b-tag>
                             <b-tag type="is-success" v-if="order.status">
@@ -174,7 +195,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="columns">
+                    <div class="columns" ref="summary">
                       <div class="column">
                         <div class="card">
                           <div class="card-header">
@@ -259,7 +280,7 @@
                   </div>
                   <div class="card-footer">
                     <div class="card-footer-item">&nbsp;
-                      <button class="button is-info" @click="nextStep">
+                      <button class="button is-info" @click="payOrder">
                         Pay Order &nbsp;
                         <font-awesome-icon :icon="['fa', 'arrow-right']"/>
                       </button>
@@ -278,6 +299,8 @@
 <script>
   import {mapState} from 'vuex'
   import api from '../../service/api'
+  import jsPDF from 'jspdf'
+  import html2canvas from 'html2canvas'
 
   export default {
   name: 'Cart',
@@ -536,6 +559,71 @@
           this.order["total"] = total
         }
       }
+    },
+
+    copyToClipboard(text) {
+      if (window.clipboardData && window.clipboardData.setData()) {
+        return window.clipboardData.setData('Text', text);
+      }
+      const textarea = document.createElement('textarea');
+      textarea.textContent = text;
+      textarea.style.position = 'fixed';
+      document.body.appendChild(textarea);
+      textarea.select();
+      try {
+        return document.execCommand('copy');
+      } catch (err) {
+        this.$buefy.toast.open({
+          duration: 3000,
+          message: 'Error: Cannot copy to clipboard',
+          position: 'is-bottom',
+          type: 'is-danger'
+        })
+      } finally {
+        document.body.removeChild(textarea);
+        this.$buefy.toast.open({
+          duration: 3000,
+          message: 'Copied to clipboard!',
+          position: 'is-bottom',
+          type: 'is-dark'
+        })
+      }
+    },
+
+    payOrder () {
+
+    },
+
+    printSummary () {
+      let id = this.order._id
+      const doc = new jsPDF();
+      let canvasElement = document.createElement('canvas');
+      html2canvas(this.$refs.summary, { canvas: canvasElement
+      }).then(function (canvas) {
+        const img = canvas.toDataURL("image/jpeg", 0.8);
+        doc.addImage(img,'JPEG',20,20);
+        doc.save(`Receipt${id}`);
+      });
+
+      // const target = this.$refs["summary"].innerHTML
+      // let stylesHTML = ''
+      // for (const node of [...document.querySelector('link[rel="stylesheet"], style')]) {
+      //   stylesHTML += node.outerHTML
+      // }
+      //
+      // const WinPrint = window.open('', '', 'left=0,top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0')
+      // WinPrint.document.write(`
+      //   <!DOCTYPE html>
+      //   <html>
+      //     <head>${stylesHTML}</head>
+      //     <body>${target}</body>
+      //   </html>
+      // `)
+      //
+      // WinPrint.document.close()
+      // WinPrint.focus()
+      // WinPrint.print()
+      // WinPrint.close()
     }
   }
 }

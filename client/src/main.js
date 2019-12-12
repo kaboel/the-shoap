@@ -17,7 +17,7 @@ import {
   faMinus, faPlus, faCheck, faSyncAlt,
   faArrowRight, faMailBulk, faShoppingCart,
   faCartPlus, faChevronRight, faChevronLeft,
-  faAsterisk, faHashtag
+  faAsterisk, faHashtag, faCopy
 } from '@fortawesome/free-solid-svg-icons'
 
 import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
@@ -29,7 +29,8 @@ library.add(
   faPlus, faMinus, faCheck, faSyncAlt,
   faArrowRight, faMailBulk, faShoppingCart,
   faWhatsapp, faCartPlus, faChevronRight,
-  faChevronLeft, faAsterisk, faHashtag
+  faChevronLeft, faAsterisk, faHashtag,
+  faCopy
 )
 
 Vue.config.productionTip = false
