@@ -50,6 +50,15 @@ const order = {
   getAllOrders () {
     return uri.get(`/orders`)
   },
+  placeOrder (order) {
+    return uri.post('/orders', {
+      name: order.name,
+      phone: order.phone,
+      email: order.email,
+      address: order.address,
+      order: order.order
+    })
+  },
   getOrderById (id) {
     return uri.get(`/order/${id}`)
   },
