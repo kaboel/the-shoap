@@ -17,15 +17,15 @@
 
     <div id="navbarMenu" class="navbar-menu" :class="{'is-active' : navToggle}">
       <div class="navbar-end">
-        <a @click="routeTo('About')" class="navbar-link is-arrowless">
-          About
-        </a>
+<!--        <a @click="routeTo('About')" class="navbar-link is-arrowless">-->
+<!--          About-->
+<!--        </a>-->
         <a @click="routeTo('Products')" class="navbar-link is-arrowless">
           Products
         </a>
-        <a @click="routeTo('Contact')" class="navbar-link is-arrowless">
-          Contact
-        </a>
+<!--        <a @click="routeTo('Contact')" class="navbar-link is-arrowless">-->
+<!--          Contact-->
+<!--        </a>-->
         <div class="navbar-item has-text-centered">
           <a @click="routeTo('Status')" class="button is-rounded is-outlined">
             <b>Check Status</b>

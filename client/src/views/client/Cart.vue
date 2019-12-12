@@ -79,7 +79,6 @@
                     <div class="custom-card-title">
                       <b><font-awesome-icon class="fa-xs" :icon="['fa', 'asterisk']"/></b>
                       <i style="color: #888">Please select a type and a brief note for your order(s)</i>
-                      {{ order.type }}
                     </div>
                   </div>
                   <div class="card-content">
@@ -139,7 +138,7 @@
                       </button>
                       &nbsp;&nbsp;&nbsp;
                       <button class="button is-success" @click="nextStep">
-                        Next &nbsp;
+                        Proceed to Checkout &nbsp;
                         <font-awesome-icon :icon="['fa', 'chevron-right']"/>
                       </button>
                     </div>
@@ -151,18 +150,121 @@
 
 
           <b-step-item label="Checkout" :clickable="false">
-            <div class="card">
-              <div class="card-footer">
-                <div class="card-footer-item">
-                  <button class="button is-dark" @click="prevStep">
-                    <font-awesome-icon :icon="['fa', 'chevron-left']"/>
-                    Previous &nbsp;
-                  </button>
-                  &nbsp;&nbsp;&nbsp;
-                  <button class="button is-info" @click="nextStep">
-                    Pay Order &nbsp;
-                    <font-awesome-icon :icon="['fa', 'arrow-right']"/>
-                  </button>
+            <div class="columns is-centered" v-if="order !=null">
+              <div class="column is-four-fifths">
+                <div class="card">
+                  <div class="card-content">
+                    <div class="columns">
+                      <div class="column">
+                        <span class="title is-size-4">Checkout Summary</span><br/>
+                      </div>
+                      <div class="column">
+                        <div class="control">
+                          <b-taglist style="float: right">
+                            <b-tag><b>#</b>{{ order._id }}</b-tag>
+                            <b-tag type="is-danger" v-if="!order.status">{{ formatDate(order.createdAt) }}</b-tag>
+                            <b-tag type="is-dark" v-if="order.status">{{ formatDate(order.updatedAt) }}</b-tag>
+                            <b-tag type="is-success" v-if="order.status">
+                              <font-awesome-icon :icon="['fa', 'check']"/>
+                            </b-tag>
+                            <b-tag size="is-medium" type="is-warning" v-if="!order.status">
+                              <font-awesome-icon :icon="['fa', 'sync-alt']"/>
+                            </b-tag>
+                          </b-taglist>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="columns">
+                      <div class="column">
+                        <div class="card">
+                          <div class="card-header">
+                            <span class="card-header-title">On behalf of</span>
+                          </div>
+                          <div class="card-content">
+                            <b-field label="Name" label-position="inside">
+                              <b-input v-model="order.name" disabled/>
+                            </b-field>
+                            <b-field label="Phone" label-position="inside">
+                              <b-input v-model="order.phone" disabled/>
+                            </b-field>
+                            <b-field label="Email" label-position="inside">
+                              <b-input v-model="order.email" disabled/>
+                            </b-field>
+                            <b-field label="Address" label-position="inside">
+                              <b-input type="textarea" v-model="order.address" disabled/>
+                            </b-field>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="column is-three-quarters">
+                        <div class="card">
+                          <div class="card-content">
+                            <table class="table is-bordered">
+                              <thead>
+                              <tr>
+                                <th width="200">Product Service</th>
+                                <th width="200">Shoe Type</th>
+                                <th width="100">Note</th>
+                                <th width="50" class="has-text-centered">Qty.</th>
+                                <th width="200">Subtotal (IDR)</th>
+                              </tr>
+                              </thead>
+                              <tbody>
+                              <tr v-for="order in order.orders" :key="order._id">
+                                <td>
+                                  <span class="title is-size-6">{{ order.product.name }}</span>
+                                  <span class="tag is-small is-info">{{ moneyFormat(order.product.price) }}</span>
+                                  <br/>
+                                  <span class="tag is-small">
+                                    <b>#</b>{{ order.product._id }}
+                                  </span>
+                                </td>
+                                <td>
+                                  <span class="title is-size-6">{{ order.type.name }}</span>
+                                  <span class="tag is-small is-info">+ {{ moneyFormat(order.type.extraPrice) }}</span>
+                                  <br/>
+                                  <span class="tag is-small">
+                                    <b>#</b>{{ order.type._id }}
+                                  </span>
+                                </td>
+                                <td>
+                                  {{ order.note }}
+                                </td>
+                                <td class="has-text-centered">
+                                  <span class="title is-size-6">
+                                    {{ order.amount }}
+                                    <font-awesome-icon class="fa-sm" :icon="['fa', 'times']"/>
+                                  </span>
+                                </td>
+                                <td>
+                                  <span class="title is-size-6">
+                                    {{ moneyFormat((order.product.price + order.type.extraPrice) * order.amount) }}
+                                  </span>
+                                </td>
+                              </tr>
+                              <tr>
+                                <th colspan="4" class="has-text-right">Total (IDR) :</th>
+                                <td>
+                                  <span class="title is-size-5">
+                                    {{ moneyFormat(order.total) }}
+                                  </span>
+                                </td>
+                              </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-footer">
+                    <div class="card-footer-item">&nbsp;
+                      <button class="button is-info" @click="nextStep">
+                        Pay Order &nbsp;
+                        <font-awesome-icon :icon="['fa', 'arrow-right']"/>
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -174,9 +276,10 @@
 </template>
 
 <script>
-import {mapState} from 'vuex'
+  import {mapState} from 'vuex'
+  import api from '../../service/api'
 
-export default {
+  export default {
   name: 'Cart',
   data () {
     return {
@@ -191,24 +294,23 @@ export default {
       allTypes: null,
       currentCart: [],
       filteredCart: [],
-      order: {
-        type: ''
-      }
+      order: null,
+      subOrder: null
     }
   },
-  computed: mapState(['types', 'products', 'cart', 'types', 'checkout']),
+  computed: mapState(['types', 'products', 'cart', 'checkout']),
   mounted () {
     this.fillProfile()
 
     let cart = this.$store.getters.cart
+    let checkout = this.$store.getters.checkout
     this.currentCart = cart.content.map(el => el)
     this.allProducts = this.$store.getters.products
     this.allTypes = this.$store.getters.types
+    this.order = checkout.order
 
     this.filterOrders()
-
-    console.log(this.currentCart)
-    console.log(this.filteredCart)
+    this.filterSummary()
   },
   watch: {
     'checkout.step': {
@@ -221,11 +323,18 @@ export default {
         this.customer = val
       }, deep: true
     },
+    'checkout.order': {
+      handler (val) {
+        this.order = val
+        this.subOrder = val.orders
+        this.filterSummary()
+      }, deep: true
+    },
     'cart.content': {
       handler (val) {
         this.currentCart = val
         this.filterOrders()
-      }
+      }, deep: true
     },
     'products': {
       handler (val) {
@@ -322,7 +431,47 @@ export default {
             }
             break;
           case 1:
+            this.$buefy.dialog.confirm({
+              title: 'Proceed to Checkout',
+              message: 'Are you sure you want to proceed? Please check all of your orders before checking out. This action cannot be undone.',
+              confirmText: 'Yes, proceed.',
+              type: 'is-warning',
+              hasIcon: true,
+              icon: 'info-circle',
+              iconPack: 'fas',
+              size: 'is-small',
+              onConfirm: async () => {
+                let order = {
+                  name: this.customer.name,
+                  phone: this.customer.phone,
+                  email: this.customer.email,
+                  address: this.customer.address,
+                  order: this.filteredCart.map((el, index) => {
+                    return {
+                      productId: el._id,
+                      typeId: document.getElementById(`type${index}`).value,
+                      amount: el.amount,
+                      note: document.getElementById(`note${index}`).value
+                    }
+                  })
+                }
 
+                await api.order.placeOrder(order).then(result => {
+                  let order = result.data
+                  this.$store.dispatch('setCheckout', {
+                    step: 2,
+                    order: order
+                  })
+                }).catch(err => {
+                  this.$buefy.toast.open({
+                    duration: 5000,
+                    message: err,
+                    position: 'is-top',
+                    type: 'is-danger'
+                  })
+                })
+              }
+            })
             break;
           case 2:
 
@@ -346,6 +495,47 @@ export default {
         currency: 'IDR',
         minimumFractionDigits: 2,
       }).format(number);
+    },
+
+    formatDate (plain) {
+      let date = new Date(plain)
+      let d = date.getDate()
+      let M = date.getMonth()
+      let y = date.getFullYear()
+
+      let H = date.getHours()
+      let m = date.getMinutes()
+
+      return `${M}/${d}/${y} | ${H}:${m}`
+    },
+
+    filterSummary() {
+      let orders = this.subOrder
+
+      if (orders) {
+        orders.forEach((el, index) => {
+          orders[index]["product"] = this.allProducts.find(product => product._id === el.productId)
+        })
+        orders.forEach((el, index) => {
+          orders[index]["type"] = this.allTypes.find(type => type._id === el.typeId)
+        })
+        this.order.orders = orders
+
+        this.setTotal()
+      }
+    },
+
+    setTotal () {
+      let orders = this.subOrder
+      if (orders) {
+        let total = 0
+        orders.forEach(order => {
+          total += (order.product.price + order.type.extraPrice) * order.amount
+        })
+        if (this.order) {
+          this.order["total"] = total
+        }
+      }
     }
   }
 }
@@ -357,6 +547,9 @@ export default {
 }
 ul.step-items {
   list-style-type: none !important;
+}
+.modal {
+  z-index: 9999 !important;
 }
 </style>
 
@@ -381,9 +574,6 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance:textfield !important;
 }
-.modal {
-  z-index: 9999 !important;
-}
 .no-data {
   color: #aaa;
   font-style: italic;
@@ -395,5 +585,11 @@ input[type=number] {
   height: 100%;
   width: 100%;
   position: absolute;
+}
+table, tr, th, td {
+  vertical-align: middle !important;
+}
+th {
+  background-color: #ddd;
 }
 </style>
